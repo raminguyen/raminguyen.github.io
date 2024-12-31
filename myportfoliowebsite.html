@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 
-<body>
+
     <!-- Header Section -->
     <div class="header">
         <div style="display: flex; justify-content: center; align-items: center; gap: 0.5rem;">
@@ -23,14 +23,14 @@
                 <p class="header-text">HELLO, I AM <span style="color: #24ff02;">RAMI HUU NGUYEN</span>.</p>
                 <p class="location">Randolph, MA</p>
                 <div>
-                    <a href="mailto:raminguyen12@gmail.com">
-                        <img src="header/email.png" alt="Email" style="width: 30px;">
+                    <a href="mailto:raminguyen12@gmail.com" style="color: #43aa8b; font-size: 1.5rem; padding: 0.3rem;">
+                        <i class="fas fa-envelope"></i>
                     </a>
-                    <a href="https://www.linkedin.com/in/raminguyen/">
-                        <img src="header/linkedin.png" alt="LinkedIn" style="width: 30px;">
+                    <a href="https://www.linkedin.com/in/raminguyen/" style="color: #43aa8b; font-size: 1.5rem; padding: 0.3rem;">
+                        <i class="fab fa-linkedin"></i>
                     </a>
-                    <a href="https://github.com/raminguyen">
-                        <img src="header/github.png" alt="GitHub" style="width: 30px;">
+                    <a href="https://github.com/raminguyen" style="color: #43aa8b; font-size: 1.5rem; padding: 0.3rem;">
+                        <i class="fab fa-github"></i>
                     </a>
                 </div>
                 <div style="margin-top: 1rem;">
@@ -42,7 +42,21 @@
         </div>
     </div>
 
-    
+    <audio id="backgroundMusic" src="Sound/happy.mp3" loop autoplay></audio>
+
+    <script>
+        const backgroundMusic = document.getElementById("backgroundMusic");
+
+        // Wait for 15 seconds, then play the audio
+        setTimeout(() => {
+            backgroundMusic.play();
+
+            // Stop the audio after 15 seconds
+            setTimeout(() => {
+                backgroundMusic.pause();
+            }, 20000);
+        }, 20000);
+    </script>
 
     <!-- Highlight Section -->
     <div class="highlight-container">
@@ -61,31 +75,19 @@
             <i class="fas fa-arrow-down"></i> <!-- Font Awesome down arrow -->
         </div>
 
-    
+            
         <div style="text-align: center; flex: 1; font-size: 1.1rem;">
 
             <p> I am an <span class="highlight-role">AI Researcher!</span>  
-                <br> I love seeing magic happen with just one trigger—Bump—and  
-                <br> watching everything come together. </p>
+                <br> I turn AI puzzles into discoveries, one breakthrough at a time 🆒.
+            </p>
         </div>
     </div>
 
+    
 
-    <!-- Four Topics in Boxes -->
-    <div style="display: flex; justify-content: center; gap: 3rem; margin-top: 5rem;">
-        <div style="background-color: #1d67f0; padding: 1rem; border-radius: 8px; width: 180px; text-align: center; font-size: 1rem;">
-            <strong>Multimodal Large Language Models</strong>
-        </div>
-        <div style="background-color: #1d67f0; padding: 1rem; border-radius: 8px; width: 150px; text-align: center; font-size: 1rem;">
-            <strong>Computer Vision</strong>
-        </div>
-        <div style="background-color: #1d67f0; padding: 1rem; border-radius: 8px; width: 180px; text-align: center; font-size: 1rem;">
-           <strong>Graphical Perception</strong>
-        </div>
-        <div style="background-color: #1d67f0; padding: 1rem; border-radius: 8px; width: 150px; text-align: center; font-size: 1rem;">
-            <strong>Data Visualization</strong>
-        </div>
-    </div>
+
+    
 
     <!-- Arrow pointing down -->
     <div style="text-align: center; margin-top: 3rem; font-size: 2rem; color: #888; position: relative; top: 1rem;">
@@ -111,23 +113,29 @@
 
 <!-- LLMP -->
 
-<div style="display: flex; justify-content: center; align-items: center; margin: 2rem 0;">
-    <img src="Offer/MMLM_works.png" alt="Research MLLMs" style="width: 30%; margin-right: 2rem; border-radius: 10px;">
-    <p style="margin: 0; text-align: center; width: 40%;">
-        Evaluated <span style="color: #1d67f0; font-weight: bold;">MLLMs' performances</span> for chart interpretation.<br><br>
-        <a href="https://github.com/raminguyen/LLMP2/blob/main/README.md" style="color: #43aa8b; font-weight: bold; text-decoration: none; font-size: 0.8rem;">
-            View more | UMass Boston
-        </a>
-    </p>
-</div>
-
 <!-- Web Scraping -->
 <div style="display: flex; justify-content: center; align-items: center; margin: 2rem 0; margin-top: 5rem;">
     <img src="Offer/webscrapingdashboard.png" alt="Web Scraping Dashboard" style="width: 30%; margin-right: 2rem; border-radius: 10px;">
     <p style="margin: 0; text-align: center; width: 40%;">
-        Built a <span style="color: #2370ff; font-weight: bold;">Web Scraping Dashboard</span> to automate workflows, reduced 75% of data collection time.<br><br>
-        <a href="insert-your-link-here" style="color: #43aa8b; font-weight: bold; text-decoration: none; font-size: 0.5rem;">
-            View more | Connelly Partners
+        Built a <span style="color: #FEEA00; font-weight: bold;">Web Scraping Dashboard</span> to automate workflows, reduced 75% of data collection time.<br><br>
+        <a href="#" 
+           style="color: #43aa8b; font-weight: bold; text-decoration: none; font-size: 0.5rem;"
+           onmouseover="this.style.color='#00ff00';" 
+           onmouseout="this.style.color='#43aa8b';">
+            View more | At Connelly Partners | Strategy Intern
+        </a>
+    </p>
+</div>
+
+<div style="display: flex; justify-content: center; align-items: center; margin: 2rem 0; margin-top: 5rem;">
+    <img src="Offer/yelpanalysis.png" alt="Yelp Analysis Project" style="width: 30%; margin-right: 2rem; border-radius: 10px;">
+    <p style="margin: 0; text-align: center; width: 40%;">
+        Analyzed <span style="color: #FEEA00; font-weight: bold;">100,000 Yelp Reviews</span> to identify key factors influencing customer satisfaction in restaurants.<br><br>
+        <a href="https://github.com/raminguyen/Projects/blob/main/Yelp%20-%20Text%20Mining%20%26%20Predictive%20Analysis%20.ipynb" 
+           style="color: #43aa8b; font-weight: bold; text-decoration: none; font-size: 0.5rem;"
+           onmouseover="this.style.color='#00ff00';" 
+           onmouseout="this.style.color='#43aa8b';">
+            View more | At UMass Boston | Academic Project
         </a>
     </p>
 </div>
@@ -136,49 +144,102 @@
 <div style="display: flex; justify-content: center; align-items: center; margin: 2rem 0; margin-top: 5rem;">
     <img src="Offer/AInewsletters.png" alt="AI Newsletters" style="width: 30%; margin-right: 2rem; border-radius: 10px;">
     <p style="margin: 0; text-align: center; width: 40%;">
-        Created <span style="color: #1d67f0; font-weight: bold;">AI Newsletters</span>, gaining 35K impressions.<br><br>
-        <a href="insert-your-link-here" style="color: #43aa8b; font-weight: bold; text-decoration: none; font-size: 0.5rem;">
-            View more | Self-Employed
+        Created <span style="color: #FEEA00; font-weight: bold;">AI Newsletters</span>, gaining 35K impressions.<br><br>
+        <a href="https://www.linkedin.com/newsletters/future-of-ai-7151569457075613696/" 
+           style="color: #43aa8b; font-weight: bold; text-decoration: none; font-size: 0.5rem;"
+           onmouseover="this.style.color='#00ff00';" 
+           onmouseout="this.style.color='#43aa8b';">
+            View more | Self-Employed | AI Newsletter Strategist
         </a>
     </p>
 </div>
 
-<!-- IANA-->
+<!-- IANA -->
 <div style="display: flex; justify-content: center; align-items: center; margin: 2rem 0; margin-top: 5rem;">
     <img src="Offer/IANA.png" alt="IANA" style="width: 30%; margin-right: 2rem; border-radius: 10px;">
     <p style="margin: 0; text-align: center; width: 40%;">
-        Developed <span style="color: #1d67f0; font-weight: bold;">content strategies & ChatGPT bots</span>, boosting ticket sales by 50% and generating 30K+ impressions.<br><br>
-        <a href="insert-your-link-here" style="color: #43aa8b; font-weight: bold; text-decoration: none; font-size: 0.5rem;">
-            View more | Insights Association, North Atlantic Chapter
+        Developed <span style="color: #FEEA00; font-weight: bold;">content strategies & ChatGPT bots</span>, boosting ticket sales by 50% and generating 30K+ impressions.<br><br>
+        <a href="https://www.linkedin.com/posts/insights-association-north-atlantic-chapt_iana-networking-events-ugcPost-7209337453411713025-rESm?utm_source=share&utm_medium=member_desktop" 
+           style="color: #43aa8b; font-weight: bold; text-decoration: none; font-size: 0.5rem;"
+           onmouseover="this.style.color='#00ff00';" 
+           onmouseout="this.style.color='#43aa8b';">
+            View more | Insights Association, North Atlantic Chapter | Social Media Intern
         </a>
     </p>
 </div>
 
-<!-- Eagle Trading Logistics-->
+<!-- Eagle Trading Logistics -->
 <div style="display: flex; justify-content: center; align-items: center; margin: 2rem 0; margin-top: 5rem;">
     <img src="Offer/Eagle.png" alt="Eagle" style="width: 30%; margin-right: 2rem; border-radius: 10px;">
     <p style="margin: 0; text-align: center; width: 40%;">
-        Redesigned <span style="color: #1d67f0; font-weight: bold;">a new logistics website layout</span>, increasing visitor engagement by 30%.<br><br>
-        <a href="https://eaglevietnam.com/" style="color: #43aa8b; font-weight: bold; text-decoration: none; font-size: 0.5rem;">
-            View more | Eagle Trading & Logistics Co., Ltd.
+        Redesigned <span style="color: #FEEA00; font-weight: bold;">a new logistics website layout</span>, increasing visitor engagement by 30%.<br><br>
+        <a href="https://eaglevietnam.com/" 
+           style="color: #43aa8b; font-weight: bold; text-decoration: none; font-size: 0.5rem;"
+           onmouseover="this.style.color='#00ff00';" 
+           onmouseout="this.style.color='#43aa8b';">
+            View more | Eagle Trading & Logistics Co., Ltd. | Website Marketing Intern
         </a>
     </p>
 </div>
 
-<!-- Shop 73-->
+<!-- Shop 73 -->
 <div style="display: flex; justify-content: center; align-items: center; margin: 2rem 0; margin-top: 5rem;">
     <img src="Offer/Shop73.png" alt="Eagle" style="width: 30%; margin-right: 2rem; border-radius: 10px;">
     <p style="margin: 0; text-align: center; width: 40%;">
-        Operated <span style="color: #1d67f0; font-weight: bold;">a retail store</span>, generating 4,000+ Facebook organic followers.<br><br>
-        <a href="https://eaglevietnam.com/" style="color: #43aa8b; font-weight: bold; text-decoration: none; font-size: 0.5rem;">
-            View more | Shop 73
+        Operated <span style="color: #FEEA00; font-weight: bold;">a retail store</span>, generating 4,000+ Facebook organic followers.<br><br>
+        <a href="https://eaglevietnam.com/" 
+           style="color: #43aa8b; font-weight: bold; text-decoration: none; font-size: 0.5rem;"
+           onmouseover="this.style.color='#00ff00';" 
+           onmouseout="this.style.color='#43aa8b';">
+            Shop 73 | Owner
         </a>
     </p>
 </div>
-
-<!-- Recent activity-->
 
 
 </body>
 
-</html>?
+</html>
+
+<footer style="background-color: #2c2c2c; color: #ffffff; text-align: center; padding: 2rem 0; margin-top: 5rem;">
+
+    <!-- Newsletter Links -->
+    <div style="margin-top: 1rem; padding-bottom: 3rem;">
+        <p style="font-size: 1.2rem; margin-bottom: 1rem;">Check Out My Newsletters:</p>
+        <div style="display: flex; justify-content: center; gap: 2rem;">
+            <!-- Future of AI Newsletter -->
+            <a href="https://www.linkedin.com/newsletters/future-of-ai-7151569457075613696/" 
+               style="display: inline-block; padding: 0.75rem 1.5rem; background-color: #1d67f0; color: white; text-decoration: none; border-radius: 8px; font-size: 1rem; font-weight: bold;"
+               onmouseover="this.style.backgroundColor='#1450c0';" 
+               onmouseout="this.style.backgroundColor='#1d67f0';">
+                Future of AI Newsletter
+            </a>
+
+            <!-- Future of Marketing Newsletter -->
+            <a href="https://www.linkedin.com/newsletters/future-of-marketing-7151569457075613696/" 
+               style="display: inline-block; padding: 0.75rem 1.5rem; background-color: #43aa8b; color: white; text-decoration: none; border-radius: 8px; font-size: 1rem; font-weight: bold;"
+               onmouseover="this.style.backgroundColor='#378f71';" 
+               onmouseout="this.style.backgroundColor='#43aa8b';">
+                Future of Marketing Newsletter
+            </a>
+        </div>
+    </div>
+
+    <div>
+        <p style="font-size: 1.2rem; margin: 0;">© 2024 Rami Huu Nguyen. All Rights Reserved.</p>
+        <p style="margin: 0.5rem 0;">Let's Connect:</p>
+        <div style="display: flex; justify-content: center; gap: 1rem; margin-top: 0.5rem;">
+            <a href="mailto:raminguyen12@gmail.com" style="color: #43aa8b; font-size: 1.5rem;">
+                <i class="fas fa-envelope"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/raminguyen/" style="color: #43aa8b; font-size: 1.5rem;">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://github.com/raminguyen" style="color: #43aa8b; font-size: 1.5rem;">
+                <i class="fab fa-github"></i>
+            </a>
+        </div>
+        <p style="margin-top: 1rem; font-size: 0.9rem;">Website built with ❤️ by Rami Huu Nguyen.</p>
+    </div>
+
+</footer>
