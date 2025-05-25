@@ -42,12 +42,27 @@
   <!-- Header Section -->
   <header class="hero-header" style="padding: 2rem; display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 2rem;">
 
-    <!-- Left: Image -->
-    <div class="hero-image">
-      <img src="header/Rami.png" alt="Photo of Rami"
-        style="width: 200px; height: 200px; border-radius: 50%; object-fit: cover; border: 3px solid #f0f5ef;">
-    </div>
+    <div class="hero-image" style="text-align: center;">
 
+      <!-- Profile Image -->
+      <img src="header/Rami.png" alt="Photo of Rami"
+           style="width: 200px; height: 200px; border-radius: 50%; object-fit: cover; border: 3px solid #f0f5ef; margin-bottom: 1rem;">
+    
+      <!-- Social Icons -->
+      <div style="display: flex; justify-content: center; gap: 1rem;">
+        <a href="mailto:raminguyen12@gmail.com" style="color: #24ff02; font-size: 1.5rem;">
+          <i class="fas fa-envelope"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/raminguyen/" style="color: #24ff02; font-size: 1.5rem;">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/raminguyen" style="color: #24ff02; font-size: 1.5rem;">
+          <i class="fab fa-github"></i>
+        </a>
+      </div>
+    
+    </div>
+    
     <!-- Right: Text -->
     <div class="hero-text" style="max-width: 600px; text-align: center;">
 
@@ -68,14 +83,33 @@
 
   <!-- Multi-line text block -->
   <div style="flex: 1; font-size: 1rem; font-weight: bold; color: #ffffff; font-style: italic; line-height: 1.8; margin: 0;">
-    <span style="color: var(--rami-green, #55ffdd);">Machine Learning Fellow</span> & Deputy Director at Machine Psychology<br>
+    <span style="color: var(--rami-green, #24ff02);">Machine Learning Fellow</span> & Deputy Director at Machine Psychology<br>
     Graduate Assistant at Assessment & Planning Department<br>
-    New PhD Student in Computational Science – Fall 2025
+    <span style="color:var(--rami-green)"> New PhD Student in Computational Science – Fall 2025 <br> </span>
+    <span style="font-style: italic;"> - Advised by Assistant Professor Daniel Haehn, Computer Science </span>
   </div>
 
-  <!-- Logo aligned right -->
-  <img src="header/umassboston_logo.png" alt="UMass Boston Logo" style="width: 200px;">
+  <!-- Logos aligned right -->
+  <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; justify-content: center;">
+
+    <!-- UMass Boston Logo -->
+    <a href="https://www.umb.edu/" target="_blank">
+      <img src="header/umassboston_logo.png" alt="UMass Boston Logo" style="width: 150px;">
+    </a>
+
+    <!-- Machine Psychology Logo -->
+    <a href="https://machinepsychology.ai/" target="_blank">
+      <img src="header/machine_psychology_logo.png" alt="Machine Psychology Logo" style="width: 100px;">
+    </a>
+
+    <!-- AI Core Logo -->
+    <a href="https://aicore.umb.edu/" target="_blank">
+      <img src="header/aicore.png" alt="AI Core Logo" style="width: 100px;">
+    </a>
+
+  </div>
 </div>
+
 
 
 </body>
@@ -91,7 +125,7 @@
 
     <a href="https://www.linkedin.com/in/raminguyen/details/recommendations/?detailScreenTabIndex=0" style="display: inline-block; margin: 8px 12px; padding: 10px 18px; background-color: #E6F9ED; color: #000000; text-decoration: none; border-radius: 8px; font-size: 1rem;">Recommendation</a>
 
-    <a href="https://www.linkedin.com/in/raminguyen/recent-activity/all/" style="display: inline-block; margin: 8px 12px; padding: 10px 18px; background-color: #E6F9ED; color: #000000; text-decoration: none; border-radius: 8px; font-size: 1rem;">Recent Activity</a>
+    <a href="https://www.linkedin.com/in/raminguyen/recent-activity/all/" style="display: inline-block; margin: 8px 12px; padding: 10px 18px; background-color: #8ca357; color: #000000; text-decoration: none; border-radius: 8px; font-size: 1rem;">Recent Activity</a>
 
 </div>
 
@@ -538,47 +572,43 @@
 
     <!-- Newsletter Links -->
     <div style="margin-top: 1rem; padding-bottom: 3rem;">
-        <p style="font-size: 1.2rem; margin-bottom: 1rem;">Check Out My Newsletters:</p>
-        <div style="display: flex; justify-content: center; gap: 2rem;">
-            <!-- Future of AI Newsletter -->
-            <a href="https://www.linkedin.com/newsletters/future-of-ai-7151569457075613696/" 
-               style="display: inline-block; padding: 0.75rem 1.5rem; background-color: #24ff02; color: black; text-decoration: none; border-radius: 8px; font-size: 1rem; font-weight: bold;"
-               onmouseover="this.style.backgroundColor='#1450c0';" 
-               onmouseout="this.style.backgroundColor='#1d67f0';">
-                Future of AI Newsletter
-            </a>
-
-            <!-- Future of Marketing Newsletter -->
-            <a href="https://www.linkedin.com/newsletters/future-of-marketing-7151569457075613696/" 
-               style="display: inline-block; padding: 0.75rem 1.5rem; background-color: #24ff02; color: black; text-decoration: none; border-radius: 8px; font-size: 1rem; font-weight: bold;"
-               onmouseover="this.style.backgroundColor='#378f71';" 
-               onmouseout="this.style.backgroundColor='#43aa8b';">
-                Future of Marketing Newsletter
-            </a>
-
-            <!-- Future of Marketing Newsletter -->
-            <a href="recentactivity.html" 
-               style="display: inline-block; padding: 0.75rem 1.5rem; background-color: #ffffff; color: black; text-decoration: none; border-radius: 8px; font-size: 1rem; font-weight: bold;"
-               onmouseover="this.style.backgroundColor='#378f71';" 
-               onmouseout="this.style.backgroundColor='#43aa8b';">
-                My Recent Activity
-            </a>
-        </div>
+      <p style="font-size: 1.2rem; margin-bottom: 1rem; text-align: center;">Check Out My Newsletters:</p>
+    
+      <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
+        
+        <!-- Future of AI Newsletter -->
+        <a href="https://www.linkedin.com/newsletters/future-of-ai-7151569457075613696/" 
+           style="display: inline-block; padding: 0.75rem 1.5rem; background-color: #24ff02; color: black; text-decoration: none; border-radius: 8px; font-size: 1rem; font-weight: bold;">
+          Future of AI Newsletter
+        </a>
+    
+        <!-- Future of Marketing Newsletter -->
+        <a href="https://www.linkedin.com/newsletters/future-of-marketing-7151569457075613696/" 
+           style="display: inline-block; padding: 0.75rem 1.5rem; background-color: #24ff02; color: black; text-decoration: none; border-radius: 8px; font-size: 1rem; font-weight: bold;">
+          Future of Marketing Newsletter
+        </a>
+    
+        <!-- Recent Activity -->
+        <a href="recentactivity.html" 
+           style="display: inline-block; padding: 0.75rem 1.5rem; background-color: #24ff02; color: black; text-decoration: none; border-radius: 8px; font-size: 1rem; font-weight: bold;">
+          My Recent Activity
+        </a>
+        
+      </div>
     </div>
-
+    
 
 
     <div>
-        <p style="font-size: 1.2rem; margin: 0;">© 2024 Rami Huu Nguyen. All Rights Reserved.</p>
-        <p style="margin: 0.5rem 0;">Let's Connect:</p>
+        <p style="font-size: 1.2rem; margin: 0;"> Website since September 2024.</p>
         <div style="display: flex; justify-content: center; gap: 1rem; margin-top: 0.5rem;">
-            <a href="mailto:raminguyen12@gmail.com" style="color: #55ffdd; font-size: 1.5rem;">
+            <a href="mailto:raminguyen12@gmail.com" style="color: #24ff02; font-size: 1.5rem;">
                 <i class="fas fa-envelope"></i>
             </a>
-            <a href="https://www.linkedin.com/in/raminguyen/" style="color: #55ffdd; font-size: 1.5rem;">
+            <a href="https://www.linkedin.com/in/raminguyen/" style="color: #24ff02; font-size: 1.5rem;">
                 <i class="fab fa-linkedin"></i>
             </a>
-            <a href="https://github.com/raminguyen" style="color: #55ffdd; font-size: 1.5rem;">
+            <a href="https://github.com/raminguyen" style="color: #24ff02; font-size: 1.5rem;">
                 <i class="fab fa-github"></i>
             </a>
         </div>
