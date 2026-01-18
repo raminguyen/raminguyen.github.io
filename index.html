@@ -1,662 +1,310 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Rami Huu Nguyen</title>
-
-  <!-- External CSS -->
-  <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-
-  <!-- Glow Animation -->
   <style>
-    @keyframes glow {
-      0%   { color: #ffffff; text-shadow: none; }
-      50%  { color: #24ff02; text-shadow: 0 0 8px #24ff02; }
-      100% { color: #ffffff; text-shadow: none; }
+    :root {
+      --rami-green: #24ff02;
+      --bg-dark: #2c2c2c;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background-color: var(--bg-dark);
+      font-family: 'Poppins', sans-serif;
+      color: #ffffff;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 1.5rem;
+      background-color: #1b1b1b;
+    }
+    nav a {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      transition: background-color 0.3s;
+    }
+    nav a:hover, nav a.active {
+      background-color: var(--rami-green);
+      color: #1b1b1b;
+    }
+    .hero-header {
+      padding: 3rem 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+    .hero-image {
+      text-align: center;
+    }
+    .hero-image img {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #f0f5ef;
+      margin-bottom: 1rem;
+    }
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+    .social-icons a {
+      color: var(--rami-green);
+      font-size: 1.5rem;
+    }
+    .hero-text {
+      max-width: 600px;
+      text-align: center;
+    }
+    .hero-text h1 {
+      font-size: 2.2rem;
+      color: #ffffff;
+    }
+    .hero-text h1 strong {
+      color: var(--rami-green);
+    }
+    .info-box {
+      margin: 2rem 2rem;
+      max-width: 100%;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      padding: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .info-text {
+      flex: 1;
+      font-size: 1rem;
+      font-weight: bold;
+      color: #ffffff;
+      font-style: italic;
+      line-height: 1.8;
+    }
+    .info-text .green {
+      color: var(--rami-green);
+    }
+    .logo-container a img {
+      width: 150px;
+    }
+    .link-showcase {
+      text-align: center;
+      margin-top: 4rem;
+    }
+    .link-showcase a {
+      display: inline-block;
+      margin: 8px 12px;
+      padding: 10px 18px;
+      background-color: #E6F9ED;
+      color: #000000;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+    .link-showcase a:hover {
+      background-color: var(--rami-green);
+    }
+    .ai-section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-top: 4rem;
+      padding: 0 2rem;
+    }
+    .ai-section img {
+      width: 300px;
+      border-radius: 12px;
+    }
+    .ai-section p {
+      font-size: 1.2rem;
+      max-width: 400px;
+      text-align: left;
+    }
+    .ai-section .green {
+      color: var(--rami-green);
+      font-weight: bold;
+    }
+    .arrow {
+      text-align: center;
+      margin-top: 3rem;
+      font-size: 2rem;
+      color: #ffffff;
+    }
+    .journey-section {
+      text-align: center;
+      margin-top: 2rem;
+    }
+    .journey-section h3 {
+      color: #ffffff;
+      font-size: 1.4rem;
+      margin-bottom: 2rem;
+    }
+    .slideshow-container {
+      max-width: 100%;
+      margin: 2rem auto;
+      padding: 0 2rem;
+    }
+    .mySlides {
+      display: none;
+      justify-content: center;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .mySlides iframe {
+      border-radius: 12px;
+    }
+    .controls {
+      text-align: center;
+      margin-top: 2rem;
+    }
+    .controls a {
+      color: var(--rami-green);
+      font-weight: bold;
+      text-decoration: none;
+    }
+    .cta-section {
+      text-align: center;
+      margin-top: 4rem;
+    }
+    .cta-section h3 {
+      color: #ffffff;
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+    }
+    .cta-section a {
+      display: inline-block;
+      background-color: var(--rami-green);
+      color: #1b1b1b;
+      padding: 0.6rem 1.4rem;
+      border-radius: 20px;
+      font-weight: bold;
+      font-size: 1rem;
+      text-decoration: none;
+    }
+    footer {
+      background-color: var(--bg-dark);
+      color: #ffffff;
+      text-align: center;
+      padding: 2rem 0;
+      margin-top: 4rem;
+    }
+    .newsletter-links {
+      margin-top: 1rem;
+      padding-bottom: 2rem;
+    }
+    .newsletter-links p {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .newsletter-links div {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .newsletter-links a {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background-color: var(--rami-green);
+      color: black;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: bold;
+    }
+    .footer-social a {
+      color: var(--rami-green);
+      font-size: 1.5rem;
+      margin: 0 0.5rem;
     }
   </style>
 </head>
 
-<audio id="backgroundMusic" src="Sound/happy.mp3" loop autoplay></audio>
+<body>
 
-<script>
-    const backgroundMusic = document.getElementById("backgroundMusic");
+  <!-- Navigation -->
+  <nav>
+    <a href="index.html" class="active">Home</a>
+    <a href="projects.html">Projects</a>
+    <a href="education.html">Education</a>
+  </nav>
 
-    // Wait for 15 seconds, then play the audio
-    setTimeout(() => {
-        backgroundMusic.play();
-
-        // Stop the audio after 5 seconds
-        setTimeout(() => {
-            backgroundMusic.pause();
-        }, 3000);
-    }, 3000);
-</script>
-
-<body style="margin: 0; background-color: #2c2c2c; font-family: 'Poppins', sans-serif;">
-
-  <!-- Header Section -->
-  <header class="hero-header" style="padding: 2rem; display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 2rem;">
-
-    <div class="hero-image" style="text-align: center;">
-
-      <!-- Profile Image -->
-      <img src="header/Rami.png" alt="Photo of Rami"
-           style="width: 200px; height: 200px; border-radius: 50%; object-fit: cover; border: 3px solid #f0f5ef; margin-bottom: 1rem;">
-    
-      <!-- Social Icons -->
-      <div style="display: flex; justify-content: center; gap: 1rem;">
-        <a href="mailto:raminguyen12@gmail.com" style="color: #24ff02; font-size: 1.5rem;">
-          <i class="fas fa-envelope"></i>
-        </a>
-        <a href="https://www.linkedin.com/in/raminguyen/" style="color: #24ff02; font-size: 1.5rem;">
-          <i class="fab fa-linkedin"></i>
-        </a>
-        <a href="https://github.com/raminguyen" style="color: #24ff02; font-size: 1.5rem;">
-          <i class="fab fa-github"></i>
-        </a>
+  <!-- Hero Header -->
+  <header class="hero-header">
+    <div class="hero-image">
+      <img src="header/Rami.png" alt="Photo of Rami">
+      <div class="social-icons">
+        <a href="mailto:raminguyen12@gmail.com"><i class="fas fa-envelope"></i></a>
+        <a href="https://www.linkedin.com/in/raminguyen/"><i class="fab fa-linkedin"></i></a>
+        <a href="https://github.com/raminguyen"><i class="fab fa-github"></i></a>
       </div>
-    
     </div>
-    
-    <!-- Right: Text -->
-    <div class="hero-text" style="max-width: 600px; text-align: center;">
-
-      <!-- Name -->
-      <h1 class="emoji-title" style="font-size: 1.8rem; color: 000000;">
-        🟩 Hello! I'm <strong style="color: var(--rami-green, #55ffdd);">Rami</strong> Huu Nguyen. 🟩
-      </h1>
-
- 
-
-    
+    <div class="hero-text">
+      <h1>Hello! I'm <strong>Rami</strong> Huu Nguyen.</h1>
     </div>
-
   </header>
 
-<!-- Boxed Container with soft green background and transparent border -->
-<div style="margin-top: 1.5rem; border: 2px solid rgba(255, 255, 255, 0.2); border-radius: 12px; padding: 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
-
-  <!-- Multi-line text block -->
-  <div style="flex: 1; font-size: 1rem; font-weight: bold; color: #ffffff; font-style: italic; line-height: 1.8; margin: 0;">
-    <span style="color: var(--rami-green, #24ff02);">AI Researcher</span> <br> at Assessment & Planning Department<br>
-    <span style="color:var(--rami-green)"> Pursuing PhD of Computational Science at UMass Boston <br> </span>
-    <span style="font-style: italic;"> Co-Founder, Technical Project Leader at The AI Fantastic </span>
+  <!-- Info Box -->
+  <div class="info-box">
+    <div class="info-text">
+      <span class="green">AI Researcher</span> <br> at Assessment & Planning Department<br>
+      <span class="green">Pursuing PhD of Computational Science at UMass Boston</span>
+    </div>
+    <div class="logo-container">
+      <a href="https://www.umb.edu/" target="_blank">
+        <img src="header/umassboston_logo.png" alt="UMass Boston Logo">
+      </a>
+    </div>
   </div>
 
-  <!-- Logos aligned right -->
-  <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; justify-content: center;">
-
-    <!-- UMass Boston Logo -->
-    <a href="https://www.umb.edu/" target="_blank">
-      <img src="header/umassboston_logo.png" alt="UMass Boston Logo" style="width: 150px;">
-    </a>
-
-    <!-- The AI Fantastic Logo --> 
-
-    <a href="https://www.linkedin.com/company/the-ai-fantastic-team/" target="_blank">
-      <img src="header/aifantasticlogo.png" alt="The AI Fantastic Logo" style="width: 150px;">
-
-
+  <!-- Link Showcase -->
+  <div class="link-showcase">
+    <a href="https://docs.google.com/document/d/1CN_9uI6BqRNCNHJL3Og6gJIwJM3g4RyDJ6jnhF68D7s/edit?usp=sharing">View My CV</a>
+    <a href="https://www.canva.com/design/DAGZ3alFMj0/IcCmmF5EiOcKWHTsKjPVKw/view?utm_content=DAGZ3alFMj0&utm_campaign=share_your_design&utm_medium=link&utm_source=shareyourdesignpanel#3">Career Journey</a>
+    <a href="https://github.com/raminguyen">GitHub</a>
+    <a href="https://www.linkedin.com/in/raminguyen/details/recommendations/?detailScreenTabIndex=0">Recommendation</a>
+    <a href="https://www.linkedin.com/in/raminguyen/recent-activity/all/">Recent Activity</a>
   </div>
-</div>
 
+  <!-- AI Section -->
+  <div class="ai-section">
+    <img src="header/i_love_ai.png" alt="I love AI">
+    <p>I use <span class="green">colors</span> to visualize complex <span class="green">AI</span> ideas.</p>
+  </div>
 
+  <!-- Footer -->
+  <footer>
+    <div>
+      <p style="font-size: 1.2rem;">Website since September 2024.</p>
+      <div class="footer-social">
+        <a href="mailto:raminguyen12@gmail.com"><i class="fas fa-envelope"></i></a>
+        <a href="https://www.linkedin.com/in/raminguyen/"><i class="fab fa-linkedin"></i></a>
+        <a href="https://github.com/raminguyen"><i class="fab fa-github"></i></a>
+      </div>
+      <p style="margin-top: 1rem; font-size: 0.9rem;">Website built by Rami Huu Nguyen.</p>
+    </div>
+  </footer>
 
 </body>
-
-   <!-- Link Showcase Section -->
-   <div style="text-align: center; font-family: 'Poppins', sans-serif; margin-top: 5rem;">
-
-    <a href="https://docs.google.com/document/d/1CN_9uI6BqRNCNHJL3Og6gJIwJM3g4RyDJ6jnhF68D7s/edit?usp=sharing" style="display: inline-block; margin: 8px 12px; padding: 10px 18px; background-color: #E6F9ED; color: #000000; text-decoration: none; border-radius: 8px; font-size: 1rem;">View My CV</a>
-
-    <a href="https://www.canva.com/design/DAGZ3alFMj0/IcCmmF5EiOcKWHTsKjPVKw/view?utm_content=DAGZ3alFMj0&utm_campaign=share_your_design&utm_medium=link&utm_source=shareyourdesignpanel#3" style="display: inline-block; margin: 8px 12px; padding: 10px 18px; background-color: #E6F9ED; color: #000000; text-decoration: none; border-radius: 8px; font-size: 1rem;">Career Journey</a>
-
-    <a href="https://github.com/raminguyen" style="display: inline-block; margin: 8px 12px; padding: 10px 18px; background-color: #E6F9ED; color: #000000; text-decoration: none; border-radius: 8px; font-size: 1rem;">GitHub</a>
-
-    <a href="https://www.linkedin.com/in/raminguyen/details/recommendations/?detailScreenTabIndex=0" style="display: inline-block; margin: 8px 12px; padding: 10px 18px; background-color: #E6F9ED; color: #000000; text-decoration: none; border-radius: 8px; font-size: 1rem;">Recommendation</a>
-
-    <a href="https://www.linkedin.com/in/raminguyen/recent-activity/all/" style="display: inline-block; margin: 8px 12px; padding: 10px 18px; background-color: #E6F9ED; color: #000000; text-decoration: none; border-radius: 8px; font-size: 1rem;">Recent Activity</a>
-
-</div>
-
-<div style="display: flex; justify-content: center; align-items: center; gap: 1rem; flex-wrap: wrap; margin-top: 5rem;">
-
-  <!-- Image on the Left -->
-  <img src="header/i_love_ai.png" alt="I love AI" style="width: 300px; border-radius: 12px;">
-
-  <!-- Text on the Right -->
-  <p style="font-size: 1.2rem; color: 000000; max-width: 400px; text-align: left; margin: 0;">
-    I use <span style="color: var(--rami-green, #55ffdd); font-weight: bold;">colors</span> to visualize complex <span style="color: var(--rami-green, #55ffdd); font-weight: bold;">AI</span> ideas.
-  </p>
-
-</div>
-
-   <!-- Downward Arrow Icon -->
-   <div style="text-align: center; margin-top: 3rem; font-size: 2rem; color: #ffffff;">
-    <i class="fas fa-arrow-down"></i>
-  </div>
-  
-
-<div style="text-align: center;">
-
-  <h3 style="color: #ffffff; font-size: 1.4rem; margin-bottom: 2rem;">My Journey Snapshot</h3>
-
-<!-- LinkedIn Slideshow: 2 per group, center-aligned -->
-<div style="max-width: 1100px; margin: 4rem auto; text-align: center;">
-
-    <!-- Slide Group 1 -->
-    <div class="mySlides" style="display: none; justify-content: center; align-items: center; gap: 24px; margin: auto; flex-wrap: wrap;">
-      
-      <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7328758288265732096?collapsed=1"
-              height="636" width="504" frameborder="0" allowfullscreen=""
-              style="border-radius: 12px;"></iframe>
-
-        <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7329292079501635585?collapsed=1"
-              height="668" width="504" frameborder="0" allowfullscreen=""
-              style="border-radius: 12px;"></iframe>
-    </div>
-  
-    <!-- Slide Group 2 -->
-    <div class="mySlides" style="display: none; justify-content: center; align-items: center; gap: 24px; margin: auto; flex-wrap: wrap;">
-      <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7325854198065938433?collapsed=1"
-              height="539" width="504" frameborder="0" allowfullscreen=""
-              style="border-radius: 12px;"></iframe>
-      <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7306288890397544449?collapsed=1"
-              height="431" width="504" frameborder="0" allowfullscreen=""
-              style="border-radius: 12px;"></iframe>
-    </div>
-  
-    <!-- Slide Group 3 -->
-    <div class="mySlides" style="display: none; justify-content: center; align-items: center; gap: 24px; margin: auto; flex-wrap: wrap;">
-      <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7289440194607423488?collapsed=1"
-              height="882" width="504" frameborder="0" allowfullscreen=""
-              style="border-radius: 12px;"></iframe>
-      <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7279911150819934208?collapsed=1"
-              height="615" width="504" frameborder="0" allowfullscreen=""
-              style="border-radius: 12px;"></iframe>
-    </div>
-  
-    <!-- Slide Group 4 -->
-    <div class="mySlides" style="display: none; justify-content: center; align-items: center; gap: 24px; margin: auto; flex-wrap: wrap;">
-      <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7272682937429409793?collapsed=1"
-              height="484" width="504" frameborder="0" allowfullscreen=""
-              style="border-radius: 12px;"></iframe>
-      <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7257558213330436097?collapsed=1"
-              height="759" width="504" frameborder="0" allowfullscreen=""
-              style="border-radius: 12px;"></iframe>
-    </div>
-  
-    <!-- Slide Group 5 -->
-    <div class="mySlides" style="display: none; justify-content: center; align-items: center; gap: 24px; margin: auto; flex-wrap: wrap;">
-      <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7194094535210139650?collapsed=1"
-              height="668" width="504" frameborder="0" allowfullscreen=""
-              style="border-radius: 12px;"></iframe>
-      <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7174064857846054912?collapsed=1"
-              height="544" width="504" frameborder="0" allowfullscreen=""
-              style="border-radius: 12px;"></iframe>
-    </div>
-    
-
-  </div>
-
-
-  <div style="text-align: center; margin-top: 2rem;">
-    <p style="color: #ffffff; font-size: 1rem;">
-      ⏸️ <a href="#" onclick="pauseSlides(); return false;" style="color: #24ff02; font-weight: bold; text-decoration: none;">Pause</a> |
-      ▶️ <a href="#" onclick="resumeSlides(); return false;" style="color: #24ff02; font-weight: bold; text-decoration: none;">Resume</a> |
-      🔍 <a href="https://www.canva.com/design/DAGZ3alFMj0/IcCmmF5EiOcKWHTsKjPVKw/view?utm_content=DAGZ3alFMj0&utm_campaign=share_your_design&utm_medium=link&utm_source=shareyourdesignpanel#3" target="_blank" style="color: #24ff02; font-weight: bold; text-decoration: none;">Learn more about me?</a>
-    </p>
-  </div>
-  
-  <script>
-    let slideIndex = 0;
-    let slideshowInterval;
-    let isPaused = false;
-    
-    function showSlides() {
-      const slides = document.getElementsByClassName("mySlides");
-      for (let i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
-      }
-      slideIndex++;
-      if (slideIndex > slides.length) { slideIndex = 1; }
-      slides[slideIndex - 1].style.display = "flex";
-    }
-    
-    function startSlides() {
-      slideshowInterval = setInterval(() => {
-        if (!isPaused) {
-          showSlides();
-        }
-      }, 5000);
-    }
-    
-    function pauseSlides() {
-      isPaused = true;
-    }
-    
-    function resumeSlides() {
-      isPaused = false;
-    }
-    
-    startSlides(); // Start the slideshow on load
-    showSlides();  // Show the first slide
-    </script>
-    
-  
-
-   <!-- Downward Arrow Icon -->
-<div style="text-align: center; margin-top: 3rem; font-size: 2rem; color: #ffffff;">
-    <i class="fas fa-arrow-down"></i>
-  </div>
-  
-
-<div style="text-align: center;">
-  <h3 style="color: #ffffff; font-size: 1.4rem; margin-bottom: 2rem;">Check out my work!</h3>
-
-  <a href="#yourSectionID" style="display: inline-block; background-color: #24ff02; color: #1b1b1b; padding: 0.6rem 1.4rem; border-radius: 20px; font-weight: bold; font-size: 1.0rem; text-decoration: none;">
-    Start Here
-  </a>
-</div>
-
-
-<!-- Project Preview with Image and Links -->
-<div style="text-align: center; margin-top: 3rem;">
-
-     <!-- Caption -->
-     <p style="color: #24ff02; font-weight: bold; font-size: 1.2rem; line-height: 1.6; margin: 0 auto 1.2rem; max-width: 700px; text-align: center;">
-        GenAI for Assessment & Critical Thinking Research · 2025 <br>
-        <span style="color: #ffffff; font-weight: normal; font-size: 1rem;">
-        UMass Boston · June 2025 – Present <br>
-        Co-advised by <strong>Associate Professor Daniel Haehn</strong> and  
-        <strong>Christian M. CalienesDeza</strong> (Director of Assessment & Planning)
-        </span>
-    </p>
-
-    <!-- Project Image -->
-    <img src="genai_assessment_cover.png" alt="GenAI Assessment Project"
-         style="width: 60%; max-width: 800px; border-radius: 12px; margin-bottom: 1.5rem; box-shadow: 0 0 12px rgba(85, 255, 221, 0.15);">
-
-    <!-- Resource Links -->
-    <p style="font-size: 0.95rem;">
-      <a href="#" target="_blank"
-         style="color: #24ff02; margin: 0 0.5rem; text-decoration: none;">Website (Coming Soon)</a> |
-
-      <a href="#" target="_blank"
-         style="color: #24ff02; margin: 0 0.5rem; text-decoration: none;">Paper 1: GenAI’s Role in Reframing Assessment of Student Learning </a> |
-
-      <a href="#" target="_blank"
-         style="color: #24ff02; margin: 0 0.5rem; text-decoration: none;">Paper 2: Assessment of critical thinking in student writing in the age of LLMs and Generative AI
-      </a>
-      
-    </p>
-
-</div>
-
-<!-- Downward Arrow Icon -->
-<div style="text-align: center; margin-top: 3rem; font-size: 2rem; color: #ffffff;">
-  <i class="fas fa-arrow-down"></i>
-</div>
-
-
-
-
-
-
-
-<!-- Project Preview with Image and Links -->
-<div style="text-align: center; margin-top: 3rem;">
-
-     <!-- Caption -->
-     <p style="color: #24ff02; font-weight: bold; font-size: 1.2rem; line-height: 1.6; margin: 0 auto 1.2rem; max-width: 700px; text-align: center;">
-        Evaluating Graphical Perception with Multimodal LLMs · 2025 <br>
-        <span style="color: #ffffff; font-weight: normal; font-size: 1rem;">
-        Presented at <strong>IEEE PacificVis 2025</strong> (Taiwan, Apr 22nd) · 
-        <strong>AI Frontier</strong> (UMass Boston, May 9th) · 
-        <strong>CSM Showcase</strong> (May 19th)
-        </span>
-    </p>
-
-    <!-- Project Image -->
-    <img src="Offer/LLMP.png" alt="LLMP"
-         style="width: 60%; max-width: 800px; border-radius: 12px; margin-bottom: 1.5rem; box-shadow: 0 0 12px rgba(85, 255, 221, 0.15);">
-  
-   
-    <!-- Resource Links -->
-    <p style="font-size: 0.95rem;">
-      <a href="https://raminguyen.github.io/LLMP2/" target="_blank"
-         style="color: #24ff02; margin: 0 0.5rem; text-decoration: none;">Website</a> |
-  
-      <a href="https://arxiv.org/abs/2504.04221" target="_blank"
-         style="color: #24ff02; margin: 0 0.5rem; text-decoration: none;">Paper</a> |
-
-         <a href="https://www.canva.com/design/DAGjuupiyww/R6VT4zrp0-y583aKvJwDkw/view?utm_content=DAGjuupiyww&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h67677ce4e8" target="_blank"
-         style="color: #24ff02; margin: 0 0.5rem; text-decoration: none;">Slides</a> |
-
-         <a href="https://drive.google.com/file/d/1Y7PA730m-QtTWMm2NwREyggbblSeXiLz/view?usp=sharing" target="_blank"
-         style="color: #24ff02; margin: 0 0.5rem; text-decoration: none;">Fast-Forward Video</a> |
-  
-      <a href="https://github.com/raminguyen/LLMP2" target="_blank"
-         style="color: #24ff02; margin: 0 0.5rem; text-decoration: none;">GitHub</a> |
-  
-      <a href="https://www.canva.com/design/DAGlRG4X0s0/J3coFaU1t7I6WQWcJX5o5A/view?utm_content=DAGlRG4X0s0&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h4595c6224b" target="_blank"
-         style="color: #24ff02; margin: 0 0.5rem; text-decoration: none;">Poster</a>
-    </p>
-  
-  </div>
-  
-
-   <!-- Downward Arrow Icon -->
-   <div style="text-align: center; margin-top: 3rem; font-size: 2rem; color: #ffffff;">
-    <i class="fas fa-arrow-down"></i>
-  </div>
-
-  
-
-<!-- Project Preview with Caption First -->
-<div style="text-align: center; margin-top: 3rem;">
-
-    <!-- Caption -->
-    <p style="color: #24ff02; font-weight: bold; font-size: 1.2rem; line-height: 1.6; margin: 0 auto 1.2rem; max-width: 700px; text-align: center;">
-        Distilling Convolutional Neural Network Performance from Multiple Data Sources · 2025  <br>
-        <span style="color: #ffffff; font-weight: normal; font-size: 1rem;">
-        Presented at <strong>AI Frontier</strong> (UMass Boston, May 9th)
-        </span>
-    </p>
-
-    <!-- Project Image -->
-    <img src="Offer/rami-huu-nguyen-knowledge-distillation.png" alt="LLMP"
-         style="width: 60%; max-width: 800px; border-radius: 12px; margin-bottom: 1.5rem; box-shadow: 0 0 12px rgba(85, 255, 221, 0.15);">
-
-    <!-- Resource Links -->
-    <p style="font-size: 0.95rem;">
-
-        <a href="https://raminguyen.github.io/AI_For_All/AI%20CyberSecurity%20UI/" target="_blank"
-           style="color: #24ff02; margin: 0 0.5rem; text-decoration: none;">Website</a> |
-
-        <a href="https://www.canva.com/design/DAGmhUzQk50/1N3Ry2SUTp6GkdaBiZrA6w/view?utm_content=DAGmhUzQk50&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h4960516ac2" target="_blank"
-           style="color: #24ff02; margin: 0 0.5rem; text-decoration: none;">Slides</a> |
-
-        <a href="https://github.com/raminguyen/AI_For_All" target="_blank"
-           style="color: #24ff02; margin: 0 0.5rem; text-decoration: none;">GitHub</a> |
-
-        <a href="https://www.canva.com/design/DAGmfQ3T340/KyuGYcrNM4IP8i8Z5frIJQ/view?utm_content=DAGmfQ3T340&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=he05f45ac7d" target="_blank"
-           style="color: #24ff02; margin: 0 0.5rem; text-decoration: none;">Poster</a>
-
-    </p>
-</div>
-
-
 </html>
-
-
-  <!-- Downward Arrow Icon -->
-  <div style="text-align: center; margin-top: 3rem; font-size: 2rem; color: #ffffff;">
-    <i class="fas fa-arrow-down"></i>
-  </div>
-
-  
-
-<!-- Project Preview with Caption First -->
-<div style="text-align: center; margin-top: 3rem;">
-
-    <!-- Caption -->
-    <p style="color: #24ff02; font-weight: bold; font-size: 1.2rem; line-height: 1.6; margin: 0 auto 1.2rem; max-width: 700px; text-align: center;">
-        Enhancing Image Colorization Using Conditional GANs · 2025 <br>
-
-        </span>
-    </p>
-
-    <!-- Project Image -->
-    <img src="Offer/image_colorization.png" alt="LLMP"
-         style="width: 60%; max-width: 800px; border-radius: 12px; margin-bottom: 1.5rem; box-shadow: 0 0 12px rgba(85, 255, 221, 0.15);">
-
-    <!-- Resource Links -->
-    <p style="font-size: 0.95rem;">
-
-        <a href="https://docs.google.com/presentation/d/1ugwfzaby_SkdIb8dxpUI79GYZOD1xhxJ/edit?usp=sharing&ouid=117579044537130000857&rtpof=true&sd=true" target="_blank"
-           style="color: #24ff02; margin: 0 0.5rem; text-decoration: none;">Slides</a> |
-
-        <a href="https://github.com/raminguyen/Image-Colorization" target="_blank"
-           style="color: #24ff02; margin: 0 0.5rem; text-decoration: none;">GitHub</a> |
-
-        <a href="https://github.com/raminguyen/Image-Colorization/blob/main/Image_Colorization_Avanith_Rami_Pranathi.pdf" target="_blank"
-           style="color: #24ff02; margin: 0 0.5rem; text-decoration: none;">Paper</a>
-
-    </p>
-</div>
-
-
-
-  <!-- Downward Arrow Icon -->
-  <div style="text-align: center; margin-top: 3rem; font-size: 2rem; color: #ffffff;">
-    <i class="fas fa-arrow-down"></i>
-  </div>
-
-  
-
-<!-- Project Preview with Caption First -->
-<div style="text-align: center; margin-top: 3rem;">
-
-    <!-- Caption -->
-    <p style="color: #24ff02; font-weight: bold; font-size: 1.2rem; line-height: 1.6; margin: 0 auto 1.2rem; max-width: 700px; text-align: center;">
-        Yelp Analysis Project<br>
-
-        </span>
-    </p>
-
-    <!-- Project Image -->
-    <img src="Offer/yelp_analysis.png" alt="LLMP"
-         style="width: 60%; max-width: 800px; border-radius: 12px; margin-bottom: 1.5rem; box-shadow: 0 0 12px rgba(85, 255, 221, 0.15);">
-
-    <!-- Resource Links -->
-    <p style="font-size: 0.95rem;">
-
-        <a href="https://github.com/raminguyen/Projects/blob/main/Yelp%20-%20Text%20Mining%20%26%20Predictive%20Analysis%20.ipynb" target="_blank"
-           style="color: #24ff02; margin: 0 0.5rem; text-decoration: none;">GitHub</a> 
-
-
-    </p>
-</div>
-
-<!-- Downward Arrow Icon -->
-<div style="text-align: center; margin-top: 3rem; font-size: 2rem; color: #ffffff;">
-    <i class="fas fa-arrow-down"></i>
-  </div>
-  
-  <!-- Project Preview -->
-  <div style="text-align: center; margin-top: 3rem;">
-    <p style="color: #24ff02; font-weight: bold; font-size: 1.2rem; line-height: 1.6; max-width: 700px; margin: 0 auto 1.2rem;">
-      Web Scraping Dashboard<br>
-      <span style="color: #ffffff;">Reduced 75% of data collection time through automation.</span>
-    </p>
-    <img src="Offer/webscrapingdashboard.png" alt="Web Scraping" style="width: 60%; max-width: 800px; border-radius: 12px; margin-bottom: 1.5rem; box-shadow: 0 0 12px rgba(85, 255, 221, 0.15);">
-    <p style="font-size: 0.95rem;">
-      <a href="https://www.linkedin.com/feed/update/urn:li:activity:7236357278600245248" target="_blank"
-         style="color: #24ff02; margin: 0 0.5rem; text-decoration: none;">View More · Connelly Partners · Strategy Intern · 2024</a>
-    </p>
-  </div>
-
-
-
-
-
-  <!-- Downward Arrow Icon -->
-<div style="text-align: center; margin-top: 3rem; font-size: 2rem; color: #ffffff;">
-    <i class="fas fa-arrow-down"></i>
-  </div>
-  
-  <div style="text-align: center; margin-top: 3rem;">
-    <p style="color: #24ff02; font-weight: bold; font-size: 1.2rem; line-height: 1.6; max-width: 700px; margin: 0 auto 1.2rem;">
-      AI Newsletters<br>
-      <span style="color: #ffffff;">Created engaging content, gaining over 35K impressions.</span>
-    </p>
-    <img src="Offer/AInewsletters.png" alt="AI Newsletter" style="width: 60%; max-width: 800px; border-radius: 12px; margin-bottom: 1.5rem; box-shadow: 0 0 12px rgba(85, 255, 221, 0.15);">
-    <p style="font-size: 0.95rem;">
-      <a href="https://www.linkedin.com/newsletters/future-of-ai-7151569457075613696/" target="_blank"
-         style="color: #24ff02; margin: 0 0.5rem; text-decoration: none;">View More · Self-Employed · Newsletter Strategist · 2023 </a>
-    </p>
-  </div>
-  
-  
-<!-- Downward Arrow Icon -->
-<div style="text-align: center; margin-top: 3rem; font-size: 2rem; color: #ffffff;">
-    <i class="fas fa-arrow-down"></i>
-  </div>
-  
-  <div style="text-align: center; margin-top: 3rem;">
-    <p style="color: #24ff02; font-weight: bold; font-size: 1.2rem; line-height: 1.6; max-width: 700px; margin: 0 auto 1.2rem;">
-      IANA Campaign<br>
-     <span style="color: #ffffff;">Used ChatGPT bots and social media to increase event reach and ticket sales.</span>
-    </p>
-    <img src="Offer/IANA.png" alt="IANA" style="width: 60%; max-width: 800px; border-radius: 12px; margin-bottom: 1.5rem; box-shadow: 0 0 12px rgba(85, 255, 221, 0.15);">
-    <p style="font-size: 0.95rem;">
-      <a href="https://www.linkedin.com/posts/insights-association-north-atlantic-chapt_iana-networking-events-ugcPost-7209337453411713025-rESm?utm_source=share&utm_medium=member_desktop" target="_blank"
-         style="color: #24ff02; margin: 0 0.5rem; text-decoration: none;">View More · Insights Association, North Atlantic Chapter · Social Media Intern · 2021 </a>
-    </p>
-  </div>
-
-  <!-- Downward Arrow Icon -->
-<div style="text-align: center; margin-top: 3rem; font-size: 2rem; color: #ffffff;">
-    <i class="fas fa-arrow-down"></i>
-  </div>
-  
-  <!-- GE Cooking Appliance Project -->
-  <div style="text-align: center; margin-top: 3rem;">
-    <p style="color: #24ff02; font-weight: bold; font-size: 1.2rem; line-height: 1.6; max-width: 700px; margin: 0 auto 1.2rem;">
-      GE Cooking Appliance Project <br>
-      <span style="color: #ffffff;">Led UX design and web content strategy for product launch campaign.</span>
-    </p>
-    <img src="Offer/GE_smart_applicances.png" alt="GE Cooking Appliance" style="width: 60%; max-width: 800px; border-radius: 12px; margin-bottom: 1.5rem; box-shadow: 0 0 12px rgba(85, 255, 221, 0.15);">
-    <p style="font-size: 0.95rem;">
-      <a href="https://www.canva.com/design/DAExCWuGQlQ/GlNtE5h9Cu_Lo2H7GiySNA/view?utm_content=DAExCWuGQlQ&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h8203acdd29" target="_blank"
-         style="color: #24ff02; margin: 0 0.5rem; text-decoration: none;">
-         View More · Suffolk University · Slides · 2021 
-      </a>
-    </p>
-  </div>
-  
-  
-  <!-- Downward Arrow Icon -->
-<div style="text-align: center; margin-top: 3rem; font-size: 2rem; color: #ffffff;">
-    <i class="fas fa-arrow-down"></i>
-  </div>
-  
-  <div style="text-align: center; margin-top: 3rem;">
-    <p style="color: #24ff02; font-weight: bold; font-size: 1.2rem; line-height: 1.6; max-width: 700px; margin: 0 auto 1.2rem;">
-      Eagle Logistics Website<br>
-        <span style="color: #ffffff;">Redesigned layout, increased visitor engagement by 30%.</span>
-    </p>
-    <img src="Offer/Eagle.png" alt="Eagle" style="width: 60%; max-width: 800px; border-radius: 12px; margin-bottom: 1.5rem; box-shadow: 0 0 12px rgba(85, 255, 221, 0.15);">
-    <p style="font-size: 0.95rem;">
-      <a href="https://eaglevietnam.com/" target="_blank"
-         style="color: #24ff02; margin: 0 0.5rem; text-decoration: none;">View Website · Eagle Trading & Logistics · Marketing Intern · 2019 </a>
-    </p>
-  </div>
-  
-
-  <!-- Downward Arrow Icon -->
-<div style="text-align: center; margin-top: 3rem; font-size: 2rem; color: #ffffff;">
-    <i class="fas fa-arrow-down"></i>
-  </div>
-  
-  <div style="text-align: center; margin-top: 3rem;">
-    <p style="color: #24ff02; font-weight: bold; font-size: 1.2rem; line-height: 1.6; max-width: 700px; margin: 0 auto 1.2rem;">
-      Shop 73<br>
-
-    </p>
-    <img src="Offer/Shop73.png" alt="Shop 73" style="width: 60%; max-width: 800px; border-radius: 12px; margin-bottom: 1.5rem; box-shadow: 0 0 12px rgba(85, 255, 221, 0.15);">
-    <p style="font-size: 0.95rem;">
-      <span style="color: #24ff02;">Shop 73 · Owner · 2014 </span>
-    </p>
-  </div>
-
-  <!-- Downward Arrow Icon -->
-<div style="text-align: center; margin-top: 4rem; font-size: 2rem; color: #ffffff;">
-    <i class="fas fa-arrow-down"></i>
-  </div>
-  
-  <!-- Education Section -->
-  <div style="text-align: center; margin-top: 3rem;">
-    <p style="color: #24ff02; font-weight: bold; font-size: 1.4rem; line-height: 1.6; margin: 0 auto 1.2rem; max-width: 800px;">
-     Education
-    </p>
-    
-    <p style="color: white; font-size: 0.95rem; line-height: 1.8; max-width: 800px; margin: 0 auto; text-align: center;">
-      <strong style="color: #24ff02;">PhD in Computational Science</strong>, UMass Boston, Dorchester, MA  
-      <br><em>(Sep 2025 – May 2030)</em><br><br>
-  
-      <strong style="color: #24ff02;">MIT Stata Center Bootcamp:</strong> Intro to Deep Learning, Cambridge, MA  
-      <br><em>(Jan 6, 2025 – Jan 10, 2025)</em><br><br>
-  
-      <strong style="color: #24ff02;">MS in Information Technology</strong>, UMass Boston, Dorchester, MA — Focus: Computer Vision and AI  
-      <br><em>(Jan 2025 – May 2025)</em><br><br>
-  
-      <strong style="color: #24ff02;">MS in Business Analytics</strong>, Big Data Track – UMass Boston, Dorchester, MA 
-      <br>GPA: 3.97 | <em>(Jan 2023 – Dec 2024)</em><br><br>
-  
-      <strong style="color: #24ff02;">MS in Marketing Research</strong>, Suffolk University, Boston, MA  
-      <br>GPA: 3.9 – Bridge Tutor | <em>(Jan 2020 – Jan 2022)</em><br><br>
-  
-      <strong style="color: #24ff02;">BC in Logistics and Supply Chain</strong> & Diploma of Commerce – Curtin University, Singapore  
-      <br><em>(Dec 2017 – Jan 2020)</em>
-    </p>
-  </div>
-  
-  
-</html>
-
-<footer style="background-color: #2c2c2c; color: #ffffff; text-align: center; padding: 2rem 0; margin-top: 2rem;">
-
-    <!-- Newsletter Links -->
-    <div style="margin-top: 1rem; padding-bottom: 3rem;">
-      <p style="font-size: 1.2rem; margin-bottom: 1rem; text-align: center;">Check Out My Newsletters:</p>
-    
-      <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
-        
-        <!-- Future of AI Newsletter -->
-        <a href="https://www.linkedin.com/newsletters/future-of-ai-7151569457075613696/" 
-           style="display: inline-block; padding: 0.75rem 1.5rem; background-color: #24ff02; color: black; text-decoration: none; border-radius: 8px; font-size: 1rem; font-weight: bold;">
-          Future of AI Newsletter
-        </a>
-    
-        <!-- Future of Marketing Newsletter -->
-        <a href="https://www.linkedin.com/newsletters/future-of-marketing-7151569457075613696/" 
-           style="display: inline-block; padding: 0.75rem 1.5rem; background-color: #24ff02; color: black; text-decoration: none; border-radius: 8px; font-size: 1rem; font-weight: bold;">
-          Future of Marketing Newsletter
-        </a>
-    
-        <!-- Recent Activity -->
-        <a href="recentactivity.html" 
-           style="display: inline-block; padding: 0.75rem 1.5rem; background-color: #24ff02; color: black; text-decoration: none; border-radius: 8px; font-size: 1rem; font-weight: bold;">
-          My Recent Activity
-        </a>
-        
-      </div>
-    </div>
-    
-
-
-    <div>
-        <p style="font-size: 1.2rem; margin: 0;"> Website since September 2024.</p>
-        <div style="display: flex; justify-content: center; gap: 1rem; margin-top: 0.5rem;">
-            <a href="mailto:raminguyen12@gmail.com" style="color: #24ff02; font-size: 1.5rem;">
-                <i class="fas fa-envelope"></i>
-            </a>
-            <a href="https://www.linkedin.com/in/raminguyen/" style="color: #24ff02; font-size: 1.5rem;">
-                <i class="fab fa-linkedin"></i>
-            </a>
-            <a href="https://github.com/raminguyen" style="color: #24ff02; font-size: 1.5rem;">
-                <i class="fab fa-github"></i>
-            </a>
-        </div>
-        <p style="margin-top: 1rem; font-size: 0.9rem;">Website built with 🟩 by Rami Huu Nguyen.</p>
-    </div>
-
-</footer>

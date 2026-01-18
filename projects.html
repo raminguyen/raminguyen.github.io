@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projects - Rami Huu Nguyen</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    :root {
+      --rami-green: #24ff02;
+      --bg-dark: #2c2c2c;
+      --card-bg: #1b1b1b;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background-color: var(--bg-dark);
+      font-family: 'Poppins', sans-serif;
+      color: #ffffff;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 1.5rem;
+      background-color: var(--card-bg);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    nav a {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      transition: background-color 0.3s;
+    }
+    nav a:hover, nav a.active {
+      background-color: var(--rami-green);
+      color: #1b1b1b;
+    }
+    .page-title {
+      text-align: center;
+      padding: 3rem 2rem 2rem;
+    }
+    .page-title h1 {
+      color: #ffffff;
+      font-size: 2.5rem;
+    }
+    .page-title h1 span {
+      color: var(--rami-green);
+    }
+    .year-section {
+      padding: 0 3rem;
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+    .year-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+    .year-badge {
+      background: var(--rami-green);
+      color: #1b1b1b;
+      padding: 1rem 2.5rem;
+      border-radius: 30px;
+      font-size: 1.8rem;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+    .year-line {
+      flex: 1;
+      height: 3px;
+      background: linear-gradient(to right, transparent, var(--rami-green), transparent);
+    }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.5rem;
+      max-width: 100%;
+      margin-bottom: 2rem;
+    }
+    .project-card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      flex-direction: column;
+      height: 450px;
+    }
+    .project-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 40px rgba(36, 255, 2, 0.2);
+      border-color: var(--rami-green);
+    }
+    .project-image-container {
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .project-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
+    .project-card:hover img {
+      transform: scale(1.05);
+    }
+    .project-content {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      border-top: 3px solid var(--rami-green);
+    }
+    .project-title {
+      color: var(--rami-green);
+      font-size: 1.15rem;
+      font-weight: bold;
+      margin-bottom: 0.75rem;
+      line-height: 1.3;
+    }
+    .project-subtitle {
+      color: #cccccc;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      line-height: 1.6;
+      flex-grow: 1;
+    }
+    .project-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: auto;
+    }
+    .project-links a {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background: rgba(36, 255, 2, 0.1);
+      color: var(--rami-green);
+      text-decoration: none;
+      border-radius: 25px;
+      font-size: 0.85rem;
+      transition: all 0.3s;
+      border: 1px solid var(--rami-green);
+    }
+    .project-links a:hover {
+      background: var(--rami-green);
+      color: #1b1b1b;
+      transform: scale(1.05);
+    }
+    .arrow-divider {
+      text-align: center;
+      padding: 3rem 0;
+      font-size: 3rem;
+      color: var(--rami-green);
+    }
+    .arrow-divider i {
+      animation: bounce 2s infinite;
+      filter: drop-shadow(0 0 10px rgba(36, 255, 2, 0.5));
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(15px); }
+    }
+    @media (max-width: 1200px) {
+      .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .year-section {
+        padding: 0 2rem;
+      }
+    }
+    @media (max-width: 768px) {
+      .projects-grid {
+        grid-template-columns: 1fr;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .year-badge {
+        font-size: 1.4rem;
+        padding: 0.8rem 1.5rem;
+      }
+      .year-section {
+        padding: 0 1.5rem;
+      }
+      .project-card {
+        height: auto;
+        min-height: 400px;
+      }
+    }
+    footer {
+      background-color: var(--card-bg);
+      color: #ffffff;
+      text-align: center;
+      padding: 3rem 2rem;
+      margin-top: 3rem;
+    }
+    footer a {
+      color: var(--rami-green);
+      font-size: 1.5rem;
+      margin: 0 0.75rem;
+      transition: transform 0.3s;
+      display: inline-block;
+    }
+    footer a:hover {
+      transform: scale(1.2);
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="projects.html" class="active">Projects</a>
+    <a href="education.html">Education</a>
+  </nav>
+
+  <div class="page-title">
+    <h1>My <span>Projects</span></h1>
+  </div>
+
+  <!-- 2025 Projects -->
+  <div class="year-section">
+    <div class="year-header">
+      <div class="year-line"></div>
+      <span class="year-badge">2025</span>
+      <div class="year-line"></div>
+    </div>
+
+    <div class="projects-grid">
+
+      <!-- GenAI Assessment -->
+      <div class="project-card">
+        <div class="project-image-container">
+          <img src="genai_assessment_cover.png" alt="GenAI Assessment Project">
+        </div>
+        <div class="project-content">
+          <h3 class="project-title">GenAI for Assessment & Critical Thinking Research</h3>
+          <p class="project-subtitle">UMass Boston - Co-advised by Associate Professor Daniel Haehn and Christian M. CalienesDeza</p>
+          <div class="project-links">
+            <a href="#">Website (Coming Soon)</a>
+            <a href="#">Paper 1</a>
+            <a href="#">Paper 2</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- LLMP -->
+      <div class="project-card">
+        <div class="project-image-container">
+          <img src="Offer/LLMP.png" alt="LLMP">
+        </div>
+        <div class="project-content">
+          <h3 class="project-title">Evaluating Graphical Perception with Multimodal LLMs</h3>
+          <p class="project-subtitle">IEEE PacificVis 2025 (Taiwan) - AI Frontier - CSM Showcase</p>
+          <div class="project-links">
+            <a href="https://raminguyen.github.io/LLMP2/" target="_blank">Website</a>
+            <a href="https://arxiv.org/abs/2504.04221" target="_blank">Paper</a>
+            <a href="https://github.com/raminguyen/LLMP2" target="_blank">GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Knowledge Distillation -->
+      <div class="project-card">
+        <div class="project-image-container">
+          <img src="Offer/rami-huu-nguyen-knowledge-distillation.png" alt="Knowledge Distillation">
+        </div>
+        <div class="project-content">
+          <h3 class="project-title">Distilling CNN Performance from Multiple Data Sources</h3>
+          <p class="project-subtitle">Presented at AI Frontier (UMass Boston, May 9th)</p>
+          <div class="project-links">
+            <a href="https://raminguyen.github.io/AI_For_All/AI%20CyberSecurity%20UI/" target="_blank">Website</a>
+            <a href="https://github.com/raminguyen/AI_For_All" target="_blank">GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image Colorization -->
+      <div class="project-card">
+        <div class="project-image-container">
+          <img src="Offer/image_colorization.png" alt="Image Colorization">
+        </div>
+        <div class="project-content">
+          <h3 class="project-title">Enhancing Image Colorization Using Conditional GANs</h3>
+          <p class="project-subtitle">Deep learning project using conditional GANs</p>
+          <div class="project-links">
+            <a href="https://github.com/raminguyen/Image-Colorization" target="_blank">GitHub</a>
+            <a href="https://github.com/raminguyen/Image-Colorization/blob/main/Image_Colorization_Avanith_Rami_Pranathi.pdf" target="_blank">Paper</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Yelp Analysis -->
+      <div class="project-card">
+        <div class="project-image-container">
+          <img src="Offer/yelp_analysis.png" alt="Yelp Analysis">
+        </div>
+        <div class="project-content">
+          <h3 class="project-title">Yelp Analysis Project</h3>
+          <p class="project-subtitle">Text Mining & Predictive Analysis</p>
+          <div class="project-links">
+            <a href="https://github.com/raminguyen/Projects/blob/main/Yelp%20-%20Text%20Mining%20%26%20Predictive%20Analysis%20.ipynb" target="_blank">GitHub</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="arrow-divider">
+    <i class="fas fa-chevron-down"></i>
+  </div>
+
+  <!-- 2024 Projects -->
+  <div class="year-section">
+    <div class="year-header">
+      <div class="year-line"></div>
+      <span class="year-badge">2024</span>
+      <div class="year-line"></div>
+    </div>
+
+    <div class="projects-grid">
+
+      <!-- Web Scraping -->
+      <div class="project-card">
+        <div class="project-image-container">
+          <img src="Offer/webscrapingdashboard.png" alt="Web Scraping">
+        </div>
+        <div class="project-content">
+          <h3 class="project-title">Web Scraping Dashboard</h3>
+          <p class="project-subtitle">Reduced 75% of data collection time through automation - Connelly Partners</p>
+          <div class="project-links">
+            <a href="https://www.linkedin.com/feed/update/urn:li:activity:7236357278600245248" target="_blank">View More</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="arrow-divider">
+    <i class="fas fa-chevron-down"></i>
+  </div>
+
+  <!-- 2014-2023 Projects -->
+  <div class="year-section">
+    <div class="year-header">
+      <div class="year-line"></div>
+      <span class="year-badge">2014 - 2023</span>
+      <div class="year-line"></div>
+    </div>
+
+    <div class="projects-grid">
+
+      <!-- AI Newsletters -->
+      <div class="project-card">
+        <div class="project-image-container">
+          <img src="Offer/AInewsletters.png" alt="AI Newsletter">
+        </div>
+        <div class="project-content">
+          <h3 class="project-title">AI Newsletters</h3>
+          <p class="project-subtitle">Created engaging content, gaining over 35K impressions - 2023</p>
+          <div class="project-links">
+            <a href="https://www.linkedin.com/newsletters/future-of-ai-7151569457075613696/" target="_blank">View More</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- IANA Campaign -->
+      <div class="project-card">
+        <div class="project-image-container">
+          <img src="Offer/IANA.png" alt="IANA">
+        </div>
+        <div class="project-content">
+          <h3 class="project-title">IANA Campaign</h3>
+          <p class="project-subtitle">Used ChatGPT bots and social media to increase event reach - Insights Association - 2021</p>
+          <div class="project-links">
+            <a href="https://www.linkedin.com/posts/insights-association-north-atlantic-chapt_iana-networking-events-ugcPost-7209337453411713025-rESm" target="_blank">View More</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- GE Cooking -->
+      <div class="project-card">
+        <div class="project-image-container">
+          <img src="Offer/GE_smart_applicances.png" alt="GE Cooking Appliance">
+        </div>
+        <div class="project-content">
+          <h3 class="project-title">GE Cooking Appliance Project</h3>
+          <p class="project-subtitle">Led UX design and web content strategy - Suffolk University - 2021</p>
+          <div class="project-links">
+            <a href="https://www.canva.com/design/DAExCWuGQlQ/GlNtE5h9Cu_Lo2H7GiySNA/view" target="_blank">View More</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Eagle Logistics -->
+      <div class="project-card">
+        <div class="project-image-container">
+          <img src="Offer/Eagle.png" alt="Eagle Logistics">
+        </div>
+        <div class="project-content">
+          <h3 class="project-title">Eagle Logistics Website</h3>
+          <p class="project-subtitle">Redesigned layout, increased visitor engagement by 30% - 2019</p>
+          <div class="project-links">
+            <a href="https://eaglevietnam.com/" target="_blank">View Website</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Shop 73 -->
+      <div class="project-card">
+        <div class="project-image-container">
+          <img src="Offer/Shop73.png" alt="Shop 73">
+        </div>
+        <div class="project-content">
+          <h3 class="project-title">Shop 73</h3>
+          <p class="project-subtitle">Personal Business - Owner - 2014</p>
+          <div class="project-links">
+            <span style="color: #aaa; font-size: 0.85rem;">Personal Business</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <p style="font-size: 1.2rem; margin-bottom: 1rem;">Website since September 2024.</p>
+    <div>
+      <a href="mailto:raminguyen12@gmail.com"><i class="fas fa-envelope"></i></a>
+      <a href="https://www.linkedin.com/in/raminguyen/"><i class="fab fa-linkedin"></i></a>
+      <a href="https://github.com/raminguyen"><i class="fab fa-github"></i></a>
+    </div>
+    <p style="margin-top: 1rem; font-size: 0.9rem;">Website built by Rami Huu Nguyen.</p>
+  </footer>
+
+</body>
+</html>
