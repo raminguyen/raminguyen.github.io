@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Speaker - Rami Huu Nguyen</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    :root {
+      --rami-green: #24ff02;
+      --bg-dark: #2c2c2c;
+      --card-bg: #1b1b1b;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background-color: var(--bg-dark);
+      font-family: 'Poppins', sans-serif;
+      color: #ffffff;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 1.5rem;
+      background-color: var(--card-bg);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    nav a {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      transition: background-color 0.3s;
+    }
+    nav a:hover, nav a.active {
+      background-color: var(--rami-green);
+      color: #1b1b1b;
+    }
+    .page-title {
+      text-align: center;
+      padding: 3rem 2rem 2rem;
+    }
+    .page-title h1 {
+      color: #ffffff;
+      font-size: 2.5rem;
+    }
+    .page-title h1 span {
+      color: var(--rami-green);
+    }
+    .year-section {
+      padding: 0 3rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .year-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+    .year-badge {
+      background: var(--rami-green);
+      color: #1b1b1b;
+      padding: 1rem 2.5rem;
+      border-radius: 30px;
+      font-size: 1.8rem;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+    .year-line {
+      display: none;
+    }
+    .organization-header {
+      color: var(--rami-green);
+      font-size: 1.5rem;
+      margin: 2rem 0 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid rgba(36, 255, 2, 0.3);
+    }
+    .speaker-card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .speaker-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(36, 255, 2, 0.15);
+      border-color: var(--rami-green);
+    }
+    .speaker-date {
+      display: inline-block;
+      background: rgba(36, 255, 2, 0.1);
+      color: var(--rami-green);
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      border: 1px solid var(--rami-green);
+    }
+    .speaker-title {
+      color: #ffffff;
+      font-size: 1.3rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.4;
+    }
+    .speaker-content {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .speaker-image {
+      flex: 0 0 auto;
+      width: 350px;
+    }
+    .speaker-image img {
+      width: 100%;
+      border-radius: 12px;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+    }
+    .speaker-pdf {
+      flex: 1;
+      min-width: 400px;
+      max-width: 600px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .pdf-container {
+      background: #0d0d0d;
+      border-radius: 12px;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+    .pdf-container:hover {
+      border-color: var(--rami-green);
+      box-shadow: 0 0 20px rgba(36, 255, 2, 0.2);
+    }
+    .pdf-container iframe {
+      width: 100%;
+      height: 500px;
+      border: none;
+    }
+    .pdf-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.8rem 1rem;
+      background: rgba(36, 255, 2, 0.1);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .pdf-header span {
+      color: #ffffff;
+      font-size: 0.9rem;
+    }
+    .pdf-header a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 1rem;
+      background: var(--rami-green);
+      color: #1b1b1b;
+      text-decoration: none;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: bold;
+      transition: all 0.3s;
+    }
+    .pdf-header a:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(36, 255, 2, 0.4);
+    }
+    .speaker-embed {
+      flex: 1;
+      min-width: 300px;
+      display: flex;
+      justify-content: center;
+    }
+    .speaker-embed iframe {
+      border-radius: 12px;
+    }
+    .arrow-divider {
+      text-align: center;
+      padding: 3rem 0;
+      font-size: 3rem;
+      color: var(--rami-green);
+    }
+    .arrow-divider i {
+      animation: bounce 2s infinite;
+      filter: drop-shadow(0 0 10px rgba(36, 255, 2, 0.5));
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(15px); }
+    }
+    @media (max-width: 768px) {
+      .year-section {
+        padding: 0 1.5rem;
+      }
+      .speaker-content {
+        flex-direction: column;
+      }
+      .speaker-image, .speaker-slide, .speaker-embed {
+        max-width: 100%;
+        min-width: 100%;
+      }
+      .year-badge {
+        font-size: 1.4rem;
+        padding: 0.8rem 1.5rem;
+      }
+    }
+    footer {
+      background-color: var(--card-bg);
+      color: #ffffff;
+      text-align: center;
+      padding: 3rem 2rem;
+      margin-top: 3rem;
+    }
+    footer a {
+      color: var(--rami-green);
+      font-size: 1.5rem;
+      margin: 0 0.75rem;
+      transition: transform 0.3s;
+      display: inline-block;
+    }
+    footer a:hover {
+      transform: scale(1.2);
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="projects.html">Projects</a>
+    <a href="education.html">Education</a>
+    <a href="speaker.html" class="active">Speaker</a>
+    <a href="mentoring.html">Mentoring</a>
+  </nav>
+
+  <div class="page-title">
+    <h1>Speaking <span>Engagements</span></h1>
+  </div>
+
+  <!-- 2025 -->
+  <div class="year-section">
+    <div class="year-header">
+      <div class="year-line"></div>
+      <span class="year-badge">2025</span>
+      <div class="year-line"></div>
+    </div>
+
+    <h2 class="organization-header"><i class="fas fa-university"></i> Fisher College</h2>
+
+    <!-- Feb 6th -->
+    <div class="speaker-card">
+      <span class="speaker-date">Feb 6th, 2025</span>
+      <h3 class="speaker-title">How to leverage ChatGPT to improve my personal brand</h3>
+      <div class="speaker-content">
+        <div class="speaker-image">
+          <img src="speaker/fisher_feb6_image.png" alt="Fisher College Feb 6th">
+        </div>
+        <div class="speaker-pdf">
+          <div class="pdf-container">
+            <div class="pdf-header">
+              <span><i class="fas fa-file-pdf"></i> Slides</span>
+              <a href="speaker/fisher_feb6_slide.pdf" target="_blank"><i class="fas fa-external-link-alt"></i> Open</a>
+            </div>
+            <iframe src="speaker/fisher_feb6_slide.pdf"></iframe>
+          </div>
+        </div>
+        <div class="speaker-pdf">
+          <div class="pdf-container">
+            <div class="pdf-header">
+              <span><i class="fas fa-file-pdf"></i> Student Review</span>
+              <a href="speaker/fisher_feb6_student_review.pdf" target="_blank"><i class="fas fa-external-link-alt"></i> Open</a>
+            </div>
+            <iframe src="speaker/fisher_feb6_student_review.pdf"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Oct 22nd -->
+    <div class="speaker-card">
+      <span class="speaker-date">Oct 22nd, 2025</span>
+      <h3 class="speaker-title">Generative AI and Customer Behavior</h3>
+      <div class="speaker-content">
+        <div class="speaker-image">
+          <img src="speaker/fisher_oct22_image.png" alt="Fisher College Oct 22nd">
+        </div>
+        <div class="speaker-pdf">
+          <div class="pdf-container">
+            <div class="pdf-header">
+              <span><i class="fas fa-file-pdf"></i> Slides</span>
+              <a href="speaker/fisher_oct22_slide.pdf" target="_blank"><i class="fas fa-external-link-alt"></i> Open</a>
+            </div>
+            <iframe src="speaker/fisher_oct22_slide.pdf"></iframe>
+          </div>
+        </div>
+        <div class="speaker-pdf">
+          <div class="pdf-container">
+            <div class="pdf-header">
+              <span><i class="fas fa-file-pdf"></i> Student Review</span>
+              <a href="speaker/fisher_oct22_student_review.pdf" target="_blank"><i class="fas fa-external-link-alt"></i> Open</a>
+            </div>
+            <iframe src="speaker/fisher_oct22_student_review.pdf"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Nov 5th -->
+    <div class="speaker-card">
+      <span class="speaker-date">Nov 5th, 2025</span>
+      <h3 class="speaker-title">Principle of Marketing with AI Fantastic</h3>
+      <div class="speaker-content">
+        <div class="speaker-image">
+          <img src="speaker/fisher_nov5_image.png" alt="Fisher College Nov 5th">
+        </div>
+        <div class="speaker-pdf">
+          <div class="pdf-container">
+            <div class="pdf-header">
+              <span><i class="fas fa-file-pdf"></i> Slides</span>
+              <a href="speaker/fisher_nov5_slide.pdf" target="_blank"><i class="fas fa-external-link-alt"></i> Open</a>
+            </div>
+            <iframe src="speaker/fisher_nov5_slide.pdf"></iframe>
+          </div>
+        </div>
+        <div class="speaker-pdf">
+          <div class="pdf-container">
+            <div class="pdf-header">
+              <span><i class="fas fa-file-pdf"></i> Student Review</span>
+              <a href="speaker/fisher_nov5_student_review.pdf" target="_blank"><i class="fas fa-external-link-alt"></i> Open</a>
+            </div>
+            <iframe src="speaker/fisher_nov5_student_review.pdf"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="arrow-divider">
+    <i class="fas fa-chevron-down"></i>
+  </div>
+
+  <!-- 2024 -->
+  <div class="year-section">
+    <div class="year-header">
+      <div class="year-line"></div>
+      <span class="year-badge">2024</span>
+      <div class="year-line"></div>
+    </div>
+
+    <div class="speaker-card">
+      <div class="speaker-content">
+        <div class="speaker-embed">
+          <div>
+            <span class="speaker-date" style="margin-bottom: 0.5rem; display: inline-block;">October 2024</span>
+            <h3 class="speaker-title" style="margin-bottom: 1rem;"><i class="fas fa-microphone"></i> Bob Marketing Show - Student perspectives: of how to use GenAI</h3>
+            <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7289440194607423488?compact=1" height="399" width="504" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
+          </div>
+        </div>
+        <div class="speaker-embed">
+          <div>
+            <span class="speaker-date" style="margin-bottom: 0.5rem; display: inline-block;">May 2024</span>
+            <h3 class="speaker-title" style="margin-bottom: 1rem;"><i class="fas fa-chalkboard-teacher"></i> Paul English - 1-minute presentation</h3>
+            <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7257558213330436097?compact=1" height="399" width="504" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <p style="font-size: 1.2rem; margin-bottom: 1rem;">Website since September 2024.</p>
+    <div>
+      <a href="mailto:raminguyen12@gmail.com"><i class="fas fa-envelope"></i></a>
+      <a href="https://www.linkedin.com/in/raminguyen/"><i class="fab fa-linkedin"></i></a>
+      <a href="https://github.com/raminguyen"><i class="fab fa-github"></i></a>
+    </div>
+    <p style="margin-top: 1rem; font-size: 0.9rem;">Website built by Rami Huu Nguyen.</p>
+  </footer>
+
+</body>
+</html>

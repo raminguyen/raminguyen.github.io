@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mentoring - Rami Huu Nguyen</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    :root {
+      --rami-green: #24ff02;
+      --bg-dark: #2c2c2c;
+      --card-bg: #1b1b1b;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background-color: var(--bg-dark);
+      font-family: 'Poppins', sans-serif;
+      color: #ffffff;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 1.5rem;
+      background-color: var(--card-bg);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    nav a {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      transition: background-color 0.3s;
+    }
+    nav a:hover, nav a.active {
+      background-color: var(--rami-green);
+      color: #1b1b1b;
+    }
+    .page-title {
+      text-align: center;
+      padding: 3rem 2rem 2rem;
+    }
+    .page-title h1 {
+      color: #ffffff;
+      font-size: 2.5rem;
+    }
+    .page-title h1 span {
+      color: var(--rami-green);
+    }
+    .quote-section {
+      max-width: 900px;
+      margin: 0 auto 3rem;
+      padding: 0 2rem;
+    }
+    .quote-card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 2.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+    }
+    .quote-card::before {
+      content: '"';
+      font-size: 5rem;
+      color: var(--rami-green);
+      position: absolute;
+      top: 10px;
+      left: 20px;
+      opacity: 0.3;
+      font-family: Georgia, serif;
+    }
+    .quote-card p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      font-style: italic;
+      color: #cccccc;
+      position: relative;
+      z-index: 1;
+    }
+    .quote-card .highlight {
+      color: var(--rami-green);
+      font-weight: bold;
+    }
+    .quote-card .source {
+      margin-top: 1.5rem;
+      color: #888888;
+      font-size: 0.9rem;
+      font-style: normal;
+    }
+    .year-section {
+      padding: 0 3rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .year-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+    .year-badge {
+      background: var(--rami-green);
+      color: #1b1b1b;
+      padding: 1rem 2.5rem;
+      border-radius: 30px;
+      font-size: 1.8rem;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+    .year-line {
+      display: none;
+    }
+    .section-header {
+      color: var(--rami-green);
+      font-size: 1.5rem;
+      margin: 2rem 0 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid rgba(36, 255, 2, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .mentee-card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .mentee-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(36, 255, 2, 0.15);
+      border-color: var(--rami-green);
+    }
+    .mentee-header {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .mentee-image {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--rami-green);
+    }
+    .mentee-info h3 {
+      color: #ffffff;
+      font-size: 1.3rem;
+      margin-bottom: 0.3rem;
+    }
+    .mentee-info .role {
+      color: var(--rami-green);
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+    .mentee-info .tagline {
+      color: #aaaaaa;
+      font-size: 0.9rem;
+      margin-top: 0.3rem;
+      font-style: italic;
+    }
+    .mentee-description {
+      color: #cccccc;
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+    .mentee-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .mentee-links a {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background: rgba(36, 255, 2, 0.1);
+      color: var(--rami-green);
+      text-decoration: none;
+      border-radius: 25px;
+      font-size: 0.85rem;
+      transition: all 0.3s;
+      border: 1px solid var(--rami-green);
+    }
+    .mentee-links a:hover {
+      background: var(--rami-green);
+      color: #1b1b1b;
+      transform: scale(1.05);
+    }
+    .collaboration-intro {
+      background: rgba(36, 255, 2, 0.05);
+      border-radius: 16px;
+      padding: 1.5rem 2rem;
+      margin-bottom: 2rem;
+      border-left: 4px solid var(--rami-green);
+    }
+    .collaboration-intro p {
+      color: #cccccc;
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+    .collaboration-intro .highlight {
+      color: var(--rami-green);
+      font-weight: bold;
+    }
+    .mentees-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+    .mentee-mini-card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 1.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .mentee-mini-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(36, 255, 2, 0.15);
+      border-color: var(--rami-green);
+    }
+    .mentee-mini-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .mentee-mini-image {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--rami-green);
+    }
+    .mentee-mini-info h4 {
+      color: #ffffff;
+      font-size: 1.1rem;
+      margin-bottom: 0.2rem;
+    }
+    .mentee-mini-info .role {
+      color: var(--rami-green);
+      font-size: 0.85rem;
+    }
+    .mentee-mini-card .description {
+      color: #aaaaaa;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      font-style: italic;
+    }
+    .images-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .image-item {
+      border-radius: 12px;
+      overflow: hidden;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+      aspect-ratio: 1;
+    }
+    .image-item:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 30px rgba(36, 255, 2, 0.2);
+      border-color: var(--rami-green);
+    }
+    .image-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .project-mini-card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .project-mini-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(36, 255, 2, 0.15);
+      border-color: var(--rami-green);
+    }
+    .project-mini-card img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+    }
+    .project-mini-card .content {
+      padding: 1rem;
+    }
+    .project-mini-card h5 {
+      color: var(--rami-green);
+      font-size: 0.9rem;
+      margin-bottom: 0.3rem;
+    }
+    .project-mini-card p {
+      color: #aaaaaa;
+      font-size: 0.8rem;
+    }
+    .linkedin-embeds-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .linkedin-embed-card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 1.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .linkedin-embed-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(36, 255, 2, 0.15);
+      border-color: var(--rami-green);
+    }
+    .linkedin-embed-card h4 {
+      color: var(--rami-green);
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .linkedin-embed-card iframe {
+      border-radius: 8px;
+    }
+    .links-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .link-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 1.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      text-decoration: none;
+      color: #ffffff;
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    }
+    .link-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(36, 255, 2, 0.15);
+      border-color: var(--rami-green);
+    }
+    .link-card i:first-child {
+      font-size: 1.5rem;
+      color: var(--rami-green);
+    }
+    .link-card span {
+      flex: 1;
+      margin-left: 1rem;
+      font-weight: 500;
+    }
+    .link-card i:last-child {
+      color: var(--rami-green);
+      font-size: 0.9rem;
+    }
+    .activities-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .activity-card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 1.5rem;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .activity-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(36, 255, 2, 0.15);
+      border-color: var(--rami-green);
+    }
+    .activity-card i {
+      font-size: 2.5rem;
+      color: var(--rami-green);
+      margin-bottom: 1rem;
+    }
+    .activity-card .count {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #ffffff;
+      margin-bottom: 0.5rem;
+    }
+    .activity-card .label {
+      color: #aaaaaa;
+      font-size: 0.9rem;
+    }
+    .arrow-divider {
+      text-align: center;
+      padding: 3rem 0;
+      font-size: 3rem;
+      color: var(--rami-green);
+    }
+    .arrow-divider i {
+      animation: bounce 2s infinite;
+      filter: drop-shadow(0 0 10px rgba(36, 255, 2, 0.5));
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(15px); }
+    }
+    @media (max-width: 1200px) {
+      .projects-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .images-grid {
+        grid-template-columns: repeat(5, 1fr);
+      }
+      .activities-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 768px) {
+      .year-section {
+        padding: 0 1.5rem;
+      }
+      .mentees-grid {
+        grid-template-columns: 1fr;
+      }
+      .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .images-grid {
+        grid-template-columns: repeat(5, 1fr);
+      }
+      .activities-grid {
+        grid-template-columns: 1fr;
+      }
+      .linkedin-embeds-grid {
+        grid-template-columns: 1fr;
+      }
+      .year-badge {
+        font-size: 1.4rem;
+        padding: 0.8rem 1.5rem;
+      }
+    }
+    footer {
+      background-color: var(--card-bg);
+      color: #ffffff;
+      text-align: center;
+      padding: 3rem 2rem;
+      margin-top: 3rem;
+    }
+    footer a {
+      color: var(--rami-green);
+      font-size: 1.5rem;
+      margin: 0 0.75rem;
+      transition: transform 0.3s;
+      display: inline-block;
+    }
+    footer a:hover {
+      transform: scale(1.2);
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="projects.html">Projects</a>
+    <a href="education.html">Education</a>
+    <a href="speaker.html">Speaker</a>
+    <a href="mentoring.html" class="active">Mentoring</a>
+  </nav>
+
+  <div class="page-title">
+    <h1>Mentoring <span>Experience</span></h1>
+  </div>
+
+  <!-- My Quote -->
+  <div class="quote-section">
+    <div class="quote-card">
+      <p>Since Jan 2024, I've always believed in the motivational quote of <span class="highlight">"make it happen."</span> I always stay committed with all my tasks, and work hard to achieve what I desire. And this is what I believe: <span class="highlight">"You don't wait for opportunity, you create it and share it."</span> This quote has inspired me to Belief in Mentoring where I can empower my mentee to believe in themselves and make it happens.</p>
+      <p class="source">- Rami Huu Nguyen</p>
+    </div>
+  </div>
+
+  <!-- 2025 -->
+  <div class="year-section">
+    <div class="year-header">
+      <div class="year-line"></div>
+      <span class="year-badge">2025</span>
+      <div class="year-line"></div>
+    </div>
+
+    <h2 class="section-header"><i class="fas fa-hands-helping"></i> Collaboration with Ila Lama</h2>
+
+    <div class="collaboration-intro">
+      <p>Since May 2025, I have been collaborating with <span class="highlight"><a href="https://www.linkedin.com/in/ilalama/" target="_blank" style="color: var(--rami-green); text-decoration: none;">Ila Lama</a></span> to uplevel our mentees: helping them build strong career portfolios while developing their storytelling and confidence to the next level. <span class="highlight">(46 meetings and 2-4 hours per each)</span></p>
+    </div>
+
+    <div class="mentees-grid">
+      <!-- Saisumedha -->
+      <div class="mentee-mini-card">
+        <div class="mentee-mini-header">
+          <img src="mentoring/saisumedha.png" alt="Saisumedha Billapati" class="mentee-mini-image">
+          <div class="mentee-mini-info">
+            <h4>Saisumedha Billapati</h4>
+            <span class="role">Business Analyst</span>
+          </div>
+        </div>
+        <p class="description">"Saisumedha is my insights. Saisumedha see the bigger picture."</p>
+        <div class="mentee-links" style="margin-top: 1rem;">
+          <a href="#"><i class="fab fa-linkedin"></i> Profile</a>
+          <a href="#"><i class="fas fa-briefcase"></i> Portfolio</a>
+        </div>
+      </div>
+
+      <!-- Avanith -->
+      <div class="mentee-mini-card">
+        <div class="mentee-mini-header">
+          <img src="mentoring/avanith.png" alt="Avanith Kanamarlapudi" class="mentee-mini-image">
+          <div class="mentee-mini-info">
+            <h4>Avanith Kanamarlapudi</h4>
+            <span class="role">Computer Scientist</span>
+          </div>
+        </div>
+        <p class="description">"Avanith is my system. Avanith asks a very good question and provides clear structure."</p>
+        <div class="mentee-links" style="margin-top: 1rem;">
+          <a href="#"><i class="fab fa-linkedin"></i> Profile</a>
+          <a href="#"><i class="fas fa-briefcase"></i> Portfolio</a>
+        </div>
+      </div>
+
+      <!-- Lakshmi Pranathi -->
+      <div class="mentee-mini-card">
+        <div class="mentee-mini-header">
+          <img src="mentoring/pranathi.png" alt="Lakshmi Pranathi Vutla" class="mentee-mini-image">
+          <div class="mentee-mini-info">
+            <h4>Lakshmi Pranathi Vutla</h4>
+            <span class="role">Idea Generator</span>
+          </div>
+        </div>
+        <p class="description">"Pranathi is my flow. Pranathi is creative, generate lots of ideas and has a strong color flow."</p>
+        <div class="mentee-links" style="margin-top: 1rem;">
+          <a href="#"><i class="fab fa-linkedin"></i> Profile</a>
+          <a href="#"><i class="fas fa-briefcase"></i> Portfolio</a>
+        </div>
+      </div>
+
+      <!-- Sireesha -->
+      <div class="mentee-mini-card">
+        <div class="mentee-mini-header">
+          <img src="mentoring/sireesha.png" alt="Sireesha Kuchimanchi" class="mentee-mini-image">
+          <div class="mentee-mini-info">
+            <h4>Sireesha Kuchimanchi</h4>
+            <span class="role">Full Stack Developer</span>
+          </div>
+        </div>
+        <p class="description">"Sireesha is my integration. Sireesha is adaptable, and Sireesha connects all teams, and develop a bridge between applications and its purposes."</p>
+        <div class="mentee-links" style="margin-top: 1rem;">
+          <a href="#"><i class="fab fa-linkedin"></i> Profile</a>
+          <a href="#"><i class="fas fa-briefcase"></i> Portfolio</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10 Images Grid -->
+    <h2 class="section-header"><i class="fas fa-images"></i> Mentoring Moments (10)</h2>
+    <div class="images-grid">
+      <div class="image-item"><img src="mentoring/moment1.png" alt="Mentoring Moment 1"></div>
+      <div class="image-item"><img src="mentoring/moment2.png" alt="Mentoring Moment 2"></div>
+      <div class="image-item"><img src="mentoring/moment3.png" alt="Mentoring Moment 3"></div>
+      <div class="image-item"><img src="mentoring/moment4.png" alt="Mentoring Moment 4"></div>
+      <div class="image-item"><img src="mentoring/moment5.png" alt="Mentoring Moment 5"></div>
+      <div class="image-item"><img src="mentoring/moment6.png" alt="Mentoring Moment 6"></div>
+      <div class="image-item"><img src="mentoring/moment7.png" alt="Mentoring Moment 7"></div>
+      <div class="image-item"><img src="mentoring/moment8.png" alt="Mentoring Moment 8"></div>
+      <div class="image-item"><img src="mentoring/moment9.png" alt="Mentoring Moment 9"></div>
+      <div class="image-item"><img src="mentoring/moment10.png" alt="Mentoring Moment 10"></div>
+    </div>
+
+    <!-- Technical Projects with Slides -->
+    <h2 class="section-header"><i class="fas fa-code"></i> Technical Projects (5)</h2>
+    <div class="projects-grid">
+      <div class="project-mini-card">
+        <img src="mentoring/project1.png" alt="Project 1">
+        <div class="content">
+          <h5>Project 1</h5>
+          <p>Technical Project</p>
+          <a href="mentoring/project1_slides.pdf" target="_blank" style="color: var(--rami-green); font-size: 0.8rem;"><i class="fas fa-file-pdf"></i> Slides</a>
+        </div>
+      </div>
+      <div class="project-mini-card">
+        <img src="mentoring/project2.png" alt="Project 2">
+        <div class="content">
+          <h5>Project 2</h5>
+          <p>Technical Project</p>
+          <a href="mentoring/project2_slides.pdf" target="_blank" style="color: var(--rami-green); font-size: 0.8rem;"><i class="fas fa-file-pdf"></i> Slides</a>
+        </div>
+      </div>
+      <div class="project-mini-card">
+        <img src="mentoring/project3.png" alt="Project 3">
+        <div class="content">
+          <h5>Project 3</h5>
+          <p>Technical Project</p>
+          <a href="mentoring/project3_slides.pdf" target="_blank" style="color: var(--rami-green); font-size: 0.8rem;"><i class="fas fa-file-pdf"></i> Slides</a>
+        </div>
+      </div>
+      <div class="project-mini-card">
+        <img src="mentoring/project4.png" alt="Project 4">
+        <div class="content">
+          <h5>Project 4</h5>
+          <p>Technical Project</p>
+          <a href="mentoring/project4_slides.pdf" target="_blank" style="color: var(--rami-green); font-size: 0.8rem;"><i class="fas fa-file-pdf"></i> Slides</a>
+        </div>
+      </div>
+      <div class="project-mini-card">
+        <img src="mentoring/project5.png" alt="Project 5">
+        <div class="content">
+          <h5>Project 5</h5>
+          <p>Technical Project</p>
+          <a href="mentoring/project5_slides.pdf" target="_blank" style="color: var(--rami-green); font-size: 0.8rem;"><i class="fas fa-file-pdf"></i> Slides</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Education Workshops (2) - Slides PDF -->
+    <h2 class="section-header"><i class="fas fa-chalkboard-teacher"></i> Education Workshops (2)</h2>
+    <div class="projects-grid" style="grid-template-columns: repeat(2, 1fr);">
+      <div class="project-mini-card">
+        <img src="mentoring/workshop1.png" alt="Workshop 1">
+        <div class="content">
+          <h5>Workshop 1</h5>
+          <p>Education Workshop</p>
+          <a href="mentoring/workshop1_slides.pdf" target="_blank" style="color: var(--rami-green); font-size: 0.8rem;"><i class="fas fa-file-pdf"></i> Slides</a>
+        </div>
+      </div>
+      <div class="project-mini-card">
+        <img src="mentoring/workshop2.png" alt="Workshop 2">
+        <div class="content">
+          <h5>Workshop 2</h5>
+          <p>Education Workshop</p>
+          <a href="mentoring/workshop2_slides.pdf" target="_blank" style="color: var(--rami-green); font-size: 0.8rem;"><i class="fas fa-file-pdf"></i> Slides</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Interview Series (3) - Links Only -->
+    <h2 class="section-header"><i class="fas fa-microphone"></i> Interview Series (3)</h2>
+    <div class="links-grid">
+      <a href="#" target="_blank" class="link-card">
+        <i class="fas fa-user-tie"></i>
+        <span>Interview 1</span>
+        <i class="fas fa-external-link-alt"></i>
+      </a>
+      <a href="#" target="_blank" class="link-card">
+        <i class="fas fa-user-tie"></i>
+        <span>Interview 2</span>
+        <i class="fas fa-external-link-alt"></i>
+      </a>
+      <a href="#" target="_blank" class="link-card">
+        <i class="fas fa-user-tie"></i>
+        <span>Interview 3</span>
+        <i class="fas fa-external-link-alt"></i>
+      </a>
+    </div>
+
+    <!-- Networking Events (3) - Pictures -->
+    <h2 class="section-header"><i class="fas fa-network-wired"></i> Networking Events (3)</h2>
+    <div class="images-grid" style="grid-template-columns: repeat(3, 1fr);">
+      <div class="image-item"><img src="mentoring/networking1.png" alt="Networking Event 1"></div>
+      <div class="image-item"><img src="mentoring/networking2.png" alt="Networking Event 2"></div>
+      <div class="image-item"><img src="mentoring/networking3.png" alt="Networking Event 3"></div>
+    </div>
+
+    <!-- Team Culture & Activities (5) - Pictures -->
+    <h2 class="section-header"><i class="fas fa-users"></i> Team Culture & Activities (5)</h2>
+    <div class="images-grid">
+      <div class="image-item"><img src="mentoring/team1.png" alt="Team Activity 1"></div>
+      <div class="image-item"><img src="mentoring/team2.png" alt="Team Activity 2"></div>
+      <div class="image-item"><img src="mentoring/team3.png" alt="Team Activity 3"></div>
+      <div class="image-item"><img src="mentoring/team4.png" alt="Team Activity 4"></div>
+      <div class="image-item"><img src="mentoring/team5.png" alt="Team Activity 5"></div>
+    </div>
+
+    <!-- Group Branded Videos (5) - Pictures -->
+    <h2 class="section-header"><i class="fas fa-video"></i> Group Branded Videos (5)</h2>
+    <div class="images-grid">
+      <div class="image-item"><img src="mentoring/video1.png" alt="Video 1"></div>
+      <div class="image-item"><img src="mentoring/video2.png" alt="Video 2"></div>
+      <div class="image-item"><img src="mentoring/video3.png" alt="Video 3"></div>
+      <div class="image-item"><img src="mentoring/video4.png" alt="Video 4"></div>
+      <div class="image-item"><img src="mentoring/video5.png" alt="Video 5"></div>
+    </div>
+
+    <!-- Memory Book (1) - Slides PDF -->
+    <h2 class="section-header"><i class="fas fa-book"></i> Memory Book (1)</h2>
+    <div class="projects-grid" style="grid-template-columns: 1fr; max-width: 300px;">
+      <div class="project-mini-card">
+        <img src="mentoring/memorybook.png" alt="Memory Book">
+        <div class="content">
+          <h5>Memory Book</h5>
+          <p>Our Journey Together</p>
+          <a href="mentoring/memorybook_slides.pdf" target="_blank" style="color: var(--rami-green); font-size: 0.8rem;"><i class="fas fa-file-pdf"></i> Slides</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="arrow-divider">
+    <i class="fas fa-chevron-down"></i>
+  </div>
+
+  <!-- 2024 -->
+  <div class="year-section">
+    <div class="year-header">
+      <div class="year-line"></div>
+      <span class="year-badge">2024</span>
+      <div class="year-line"></div>
+    </div>
+
+    <div class="mentee-card">
+      <div class="mentee-header">
+        <img src="mentoring/katherine.png" alt="Katherine Chang" class="mentee-image">
+        <div class="mentee-info">
+          <h3>Katherine Chang</h3>
+          <span class="role">Social Media Marketer</span>
+          <p class="tagline">MS in Marketing - Hult International Business School</p>
+        </div>
+      </div>
+      <p class="mentee-description">Katherine Chang is a social media marketer here in Boston. For Rami, Katherine is sweet, creative, and always keep active in her professional lives. She got her MS in Marketing degree at Hult International Business School.</p>
+      <div class="mentee-links">
+        <a href="#"><i class="fab fa-linkedin"></i> LinkedIn Profile</a>
+        <a href="#"><i class="fas fa-briefcase"></i> Portfolio</a>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <p style="font-size: 1.2rem; margin-bottom: 1rem;">Website since September 2024.</p>
+    <div>
+      <a href="mailto:raminguyen12@gmail.com"><i class="fas fa-envelope"></i></a>
+      <a href="https://www.linkedin.com/in/raminguyen/"><i class="fab fa-linkedin"></i></a>
+      <a href="https://github.com/raminguyen"><i class="fab fa-github"></i></a>
+    </div>
+    <p style="margin-top: 1rem; font-size: 0.9rem;">Website built by Rami Huu Nguyen.</p>
+  </footer>
+
+</body>
+</html>
