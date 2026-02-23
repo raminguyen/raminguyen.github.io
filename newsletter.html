@@ -64,10 +64,6 @@
   .o-post { border-color:var(--teal-border); background:var(--teal-muted); }
   .o-post .out-title { color:var(--teal); }
   .o-post.active { box-shadow:0 0 0 2px var(--teal),0 0 20px rgba(0,229,160,.2); }
-  .o-twitter { border-color:rgba(192,132,252,.4); background:rgba(192,132,252,.07); }
-  .o-twitter .out-title { color:var(--purple); }
-  .o-twitter.active { box-shadow:0 0 0 2px var(--purple),0 0 20px rgba(192,132,252,.2); }
-
   .n-factcheck { border-color:rgba(245,197,24,.4); background:rgba(245,197,24,.07); }
   .n-factcheck .node-title { color:var(--yellow); }
   .n-factcheck.active { box-shadow:0 0 0 2px var(--yellow),0 0 24px rgba(245,197,24,.2); }
@@ -92,7 +88,14 @@
   .mhead { position:absolute; bottom:0; left:50%; transform:translateX(-50%); width:0; height:0; border-left:5px solid transparent; border-right:5px solid transparent; border-top:7px solid var(--border); transition:border-top-color .35s; }
   .mhead.lit { border-top-color:var(--teal); }
 
-  .panel { width:300px; background:var(--bg2); border-left:1px solid var(--border); display:flex; flex-direction:column; flex-shrink:0; overflow:hidden; }
+  /* Panel */
+  .panel { width:300px; background:var(--bg2); border-left:1px solid var(--border); display:flex; flex-direction:column; flex-shrink:0; overflow:hidden; position:relative; min-width:180px; max-width:90vw; }
+  .panel.pdf-mode { width:560px; }
+
+  /* Left edge drag handle (width resize) */
+  .resize-handle { position:absolute; left:0; top:0; bottom:0; width:5px; cursor:col-resize; z-index:10; background:transparent; transition:background .2s; }
+  .resize-handle:hover, .resize-handle.dragging { background:var(--teal); opacity:.5; }
+
   .panel-top { padding:16px 20px 12px; border-bottom:1px solid var(--border); flex-shrink:0; }
   .panel-top-label { font-size:9px; font-family:'Space Mono',monospace; color:var(--text-muted); letter-spacing:.12em; text-transform:uppercase; margin-bottom:6px; }
   .panel-title { font-size:14px; font-weight:600; color:var(--text); }
@@ -111,6 +114,21 @@
   .empty-text { font-size:11px; color:var(--text-muted); font-family:'Space Mono',monospace; text-align:center; line-height:1.7; margin-top:6px; }
   .reset-btn { margin:12px 20px; background:transparent; border:1px solid var(--border); color:var(--text-muted); font-family:'Space Mono',monospace; font-size:10px; padding:7px 0; border-radius:6px; cursor:pointer; transition:all .15s; letter-spacing:.06em; }
   .reset-btn:hover { border-color:var(--teal-border); color:var(--teal); background:var(--teal-muted); }
+
+  /* Vertical splitter between details and PDF */
+  .panel-splitter { display:none; height:8px; cursor:row-resize; flex-shrink:0; background:var(--bg3); border-top:1px solid var(--border); border-bottom:1px solid var(--border); position:relative; align-items:center; justify-content:center; }
+  .panel-splitter.visible { display:flex; }
+  .panel-splitter:hover, .panel-splitter.dragging { background:rgba(0,229,160,.12); }
+  .splitter-dots { display:flex; gap:3px; pointer-events:none; }
+  .splitter-dots span { width:3px; height:3px; border-radius:50%; background:var(--text-muted); }
+  .panel-splitter:hover .splitter-dots span, .panel-splitter.dragging .splitter-dots span { background:var(--teal); }
+
+  /* PDF section */
+  .panel-pdf { display:none; flex-direction:column; flex:1; overflow:hidden; min-height:60px; }
+  .panel-pdf.visible { display:flex; }
+  .pdf-label { font-size:9px; font-family:'Space Mono',monospace; color:var(--text-muted); letter-spacing:.12em; text-transform:uppercase; padding:10px 20px 8px; border-bottom:1px solid var(--border); flex-shrink:0; }
+  .pdf-label span { color:var(--teal); }
+  .pdf-frame { flex:1; border:none; background:#1a1a1a; }
 </style>
 </head>
 <body>
@@ -177,12 +195,6 @@
             <div class="out-title">LinkedIn Post</div><div class="out-sub">~250 words</div>
           </div>
         </div>
-        <div class="out-col">
-          <div class="arr" id="arr-c"><div class="arr-line"></div><div class="arr-head"></div></div>
-          <div class="out-node o-twitter" onclick="sel('twitter')" id="n-twitter">
-            <div class="out-title">Twitter Thread</div><div class="out-sub">tweets + thread</div>
-          </div>
-        </div>
       </div>
 
       <div class="arr" id="arr4" style="margin-top:8px"><div class="arr-line"></div><div class="arr-head"></div></div>
@@ -205,12 +217,15 @@
   </div>
 
   <!-- PANEL -->
-  <div class="panel">
+  <div class="panel" id="panel">
+    <div class="resize-handle" id="resize-handle"></div>
+
     <div class="empty-state" id="empty-state">
       <div class="empty-line"></div><div class="empty-line" style="width:20px"></div>
       <div class="empty-text">Click any node<br>to see details</div>
     </div>
-    <div id="panel-content" style="display:none;flex-direction:column;flex:1;overflow:hidden;">
+
+    <div id="panel-content" style="display:none;flex-direction:column;flex-shrink:0;overflow:hidden;">
       <div class="panel-top">
         <div class="panel-top-label">Step Details</div>
         <div class="panel-title" id="p-title"></div>
@@ -218,6 +233,16 @@
       <div class="progress" id="progress"></div>
       <div class="panel-body" id="p-body"></div>
       <button class="reset-btn" onclick="resetAll()">Reset Diagram</button>
+    </div>
+
+    <!-- Drag splitter between details and PDF -->
+    <div class="panel-splitter" id="panel-splitter">
+      <div class="splitter-dots"><span></span><span></span><span></span><span></span><span></span></div>
+    </div>
+
+    <div class="panel-pdf" id="panel-pdf">
+      <div class="pdf-label">Sample Output — <span>AI Transforms PDFs into Podcasts</span></div>
+      <iframe class="pdf-frame" id="pdf-frame" src=""></iframe>
     </div>
   </div>
 </div>
@@ -231,13 +256,12 @@ const details = {
   rules:   { title:'Apply Content Rules', items:[{n:'01',t:'Professional + conversational tone throughout',w:false},{n:'02',t:'No headings displayed in final output',w:false},{n:'03',t:'2 relevant emojis included per output',w:false},{n:'04',t:'Hashtags: top relevant + #innovation #rami always added',w:false},{n:'05',t:"Content matched to target role's knowledge level",w:false}] },
   article: { title:'LinkedIn Article — ~500 words', items:[{n:'01',t:'Hook — attention-grabbing opener',w:false},{n:'02',t:'Introduction — brief overview and central theme',w:false},{n:'03',t:'Specific Solutions — structured with bullet points',w:false},{n:'04',t:'Conclusion — summary + reinforce key points',w:false},{n:'05',t:'CTA — connect via LinkedIn or rami.nguyen12@gmail.com',w:false},{n:'06',t:'Signature ending included on every article',w:false}] },
   post:    { title:'LinkedIn Post — ~250 words', items:[{n:'01',t:'"Are you…?" engaging question opener',w:false},{n:'02',t:'Intro — significance + what reader gains',w:false},{n:'03',t:'Actionable Link — immediate call to action',w:false},{n:'04',t:'Value Add 1 — key insight or benefit',w:false},{n:'05',t:'Value Add 2 — bullet features list',w:false},{n:'06',t:'Value Add 3 — additional angle or resource',w:false},{n:'07',t:'Engagement prompt + final CTA + hashtags',w:false}] },
-  twitter: { title:'Twitter / X Thread', items:[{n:'01',t:'Tweet 1 — bold hook to stop the scroll',w:false},{n:'02',t:'Tweets 2–N — thread breaking down the topic',w:false},{n:'03',t:'Short, punchy, platform-native language',w:false},{n:'04',t:'2 relevant emojis woven throughout',w:false},{n:'05',t:'Final tweet — hashtags + call to action',w:false}] },
   factcheck: { title:'Fact Check', items:[{n:'01',t:'Human reviews all claims and statistics in the output',w:true},{n:'02',t:'Sources cross-verified against original research',w:true},{n:'03',t:'Any uncertain facts are flagged or removed',w:true},{n:'04',t:'Final review before the disclaimer is added',w:true}] },
   disclaimer: { title:'AI-Generated Disclaimer', items:[{n:'!',t:'This content was generated by ChatGPT',w:true},{n:'!',t:'Facts have been double-checked, but please review before publishing',w:true},{n:'!',t:'Use your own judgment — AI can make mistakes',w:true},{n:'!',t:'Disclaimer is appended to every output automatically',w:true}] },
   end: { title:'Delivered to User', items:[{n:'01',t:'All 3 format outputs ready with disclaimer attached',w:false},{n:'02',t:'Content tailored to the chosen role and platform',w:false},{n:'03',t:'Ready to review, edit, and publish',w:false}] }
 };
 
-const flowOrder = ['start','topic','writing','search','rules','article','post','twitter','factcheck','disclaimer','end'];
+const flowOrder = ['start','topic','writing','search','rules','article','post','factcheck','disclaimer','end'];
 const arrowMap = {
   topic:      ['arr0','mp-l'],
   writing:    ['arr0','mp-r'],
@@ -245,12 +269,11 @@ const arrowMap = {
   rules:      ['arr0','mp-l','mp-r','mhead','arr2'],
   article:    ['arr0','mp-l','mp-r','mhead','arr2','arr3','arr-a'],
   post:       ['arr0','mp-l','mp-r','mhead','arr2','arr3','arr-b'],
-  twitter:    ['arr0','mp-l','mp-r','mhead','arr2','arr3','arr-c'],
-  factcheck:  ['arr0','mp-l','mp-r','mhead','arr2','arr3','arr-a','arr-b','arr-c','arr4'],
-  disclaimer: ['arr0','mp-l','mp-r','mhead','arr2','arr3','arr-a','arr-b','arr-c','arr4','arr5'],
-  end:        ['arr0','mp-l','mp-r','mhead','arr2','arr3','arr-a','arr-b','arr-c','arr4','arr5','arr6'],
+  factcheck:  ['arr0','mp-l','mp-r','mhead','arr2','arr3','arr-a','arr-b','arr4'],
+  disclaimer: ['arr0','mp-l','mp-r','mhead','arr2','arr3','arr-a','arr-b','arr4','arr5'],
+  end:        ['arr0','mp-l','mp-r','mhead','arr2','arr3','arr-a','arr-b','arr4','arr5','arr6'],
 };
-const nodeMap = { topic:'n-topic', writing:'n-writing', search:'n-search', rules:'n-rules', article:'n-article', post:'n-post', twitter:'n-twitter', factcheck:'n-factcheck', disclaimer:'n-disclaimer' };
+const nodeMap = { topic:'n-topic', writing:'n-writing', search:'n-search', rules:'n-rules', article:'n-article', post:'n-post', factcheck:'n-factcheck', disclaimer:'n-disclaimer' };
 
 let current = null;
 
@@ -261,7 +284,16 @@ function resetAll() {
   Object.values(nodeMap).forEach(id=>document.getElementById(id)?.classList.remove('active'));
   document.getElementById('empty-state').style.display='flex';
   document.getElementById('panel-content').style.display='none';
+  hidePdf();
   current=null;
+}
+
+function hidePdf() {
+  document.getElementById('panel-pdf').classList.remove('visible');
+  document.getElementById('panel-splitter').classList.remove('visible');
+  document.getElementById('pdf-frame').src='';
+  document.getElementById('panel').classList.remove('pdf-mode');
+  document.getElementById('panel-content').style.height='';
 }
 
 function sel(key) {
@@ -280,7 +312,72 @@ function sel(key) {
   const idx=flowOrder.indexOf(key);
   document.getElementById('progress').innerHTML=flowOrder.map((_,i)=>`<div class="p-dot ${i<=idx?'on':''}"></div>`).join('');
   document.getElementById('p-body').innerHTML=d.items.map(item=>`<div class="detail-item"><span class="d-num ${item.w?'warn':''}">${item.n}</span><span>${item.t}</span></div>`).join('');
+  if(key==='end'){
+    document.getElementById('panel').classList.add('pdf-mode');
+    // default split: details ~35%, PDF ~65%
+    const panelH = document.getElementById('panel').offsetHeight;
+    pc.style.height = Math.round(panelH * 0.35) + 'px';
+    document.getElementById('panel-splitter').classList.add('visible');
+    document.getElementById('panel-pdf').classList.add('visible');
+    document.getElementById('pdf-frame').src='project/newsletter/AI Transforms PDFs into Podcasts _ LinkedIn.pdf';
+  } else {
+    hidePdf();
+  }
 }
+
+// Left-edge drag → resize panel width
+(function(){
+  const panel=document.getElementById('panel');
+  const handle=document.getElementById('resize-handle');
+  let dragging=false, startX=0, startW=0;
+  handle.addEventListener('mousedown',e=>{
+    dragging=true; startX=e.clientX; startW=panel.offsetWidth;
+    handle.classList.add('dragging');
+    document.body.style.cursor='col-resize';
+    document.body.style.userSelect='none';
+    e.preventDefault();
+  });
+  document.addEventListener('mousemove',e=>{
+    if(!dragging)return;
+    const newW=Math.min(Math.max(startW+(startX-e.clientX),180),window.innerWidth*0.9);
+    panel.style.width=newW+'px';
+  });
+  document.addEventListener('mouseup',()=>{
+    if(!dragging)return;
+    dragging=false;
+    handle.classList.remove('dragging');
+    document.body.style.cursor='';
+    document.body.style.userSelect='';
+  });
+})();
+
+// Splitter drag → resize details vs PDF height
+(function(){
+  const splitter=document.getElementById('panel-splitter');
+  const pc=document.getElementById('panel-content');
+  const panel=document.getElementById('panel');
+  let dragging=false, startY=0, startH=0;
+  splitter.addEventListener('mousedown',e=>{
+    dragging=true; startY=e.clientY; startH=pc.offsetHeight;
+    splitter.classList.add('dragging');
+    document.body.style.cursor='row-resize';
+    document.body.style.userSelect='none';
+    e.preventDefault();
+  });
+  document.addEventListener('mousemove',e=>{
+    if(!dragging)return;
+    const panelH=panel.offsetHeight;
+    const newH=Math.min(Math.max(startH+(e.clientY-startY), 60), panelH-60);
+    pc.style.height=newH+'px';
+  });
+  document.addEventListener('mouseup',()=>{
+    if(!dragging)return;
+    dragging=false;
+    splitter.classList.remove('dragging');
+    document.body.style.cursor='';
+    document.body.style.userSelect='';
+  });
+})();
 </script>
 </body>
 </html>
