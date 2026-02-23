@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Content Chatbot Flow</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#0b0f0b; --bg2:#111611; --bg3:#161d16;
+    --teal:#00e5a0; --teal-muted:rgba(0,229,160,0.08); --teal-border:rgba(0,229,160,0.22);
+    --text:#e8f0e8; --text-muted:#6b7f6b; --text-dim:#9aaa9a; --border:rgba(255,255,255,0.07);
+    --blue:#4fc3f7; --yellow:#f5c518; --orange:#ff8c42; --purple:#c084fc; --red:#f87171;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--text); font-family:'DM Sans',sans-serif; height:100vh; display:flex; flex-direction:column; overflow:hidden; }
+  .topbar { background:var(--bg2); border-bottom:1px solid var(--border); padding:0 28px; height:46px; display:flex; align-items:center; justify-content:space-between; flex-shrink:0; }
+  .logo { font-family:'Space Mono',monospace; font-size:11px; color:var(--teal); letter-spacing:.06em; }
+  .hint { font-size:10px; color:var(--text-muted); font-family:'Space Mono',monospace; }
+  .main { flex:1; display:flex; overflow:hidden; }
+  .diagram { flex:1; display:flex; align-items:center; justify-content:center; padding:20px 30px; overflow:auto; }
+  .diagram::-webkit-scrollbar { width:4px; height:4px; }
+  .diagram::-webkit-scrollbar-thumb { background:var(--teal-border); border-radius:2px; }
+  .flow { display:flex; flex-direction:column; align-items:center; gap:0; }
+
+  .node { cursor:pointer; border-radius:10px; border:1px solid var(--border); background:var(--bg2); padding:11px 30px; text-align:center; transition:all .2s ease; min-width:210px; }
+  .node:hover { transform:scale(1.04); }
+  .node-title { font-size:12px; font-weight:600; }
+  .node-sub { font-size:10px; font-family:'Space Mono',monospace; color:var(--text-muted); margin-top:3px; }
+
+  .n-start { background:var(--teal-muted); border:2px solid var(--teal); border-radius:50px; padding:9px 36px; }
+  .n-start .node-title { color:var(--teal); font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.1em; }
+
+  .input-row { display:flex; gap:10px; align-items:stretch; }
+  .input-divider { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; padding:0 2px; }
+  .div-line { width:1px; flex:1; background:var(--border); }
+  .div-plus { font-family:'Space Mono',monospace; font-size:10px; color:var(--text-muted); }
+
+  .n-topic { border-color:rgba(79,195,247,.4); background:rgba(79,195,247,.07); min-width:148px; }
+  .n-topic .node-title { color:var(--blue); }
+  .n-topic.active { box-shadow:0 0 0 2px var(--blue),0 0 20px rgba(79,195,247,.2); }
+
+  .n-writing { border-color:rgba(192,132,252,.4); background:rgba(192,132,252,.07); min-width:148px; }
+  .n-writing .node-title { color:var(--purple); }
+  .n-writing.active { box-shadow:0 0 0 2px var(--purple),0 0 20px rgba(192,132,252,.2); }
+
+  .n-search { border-color:rgba(245,197,24,.4); background:rgba(245,197,24,.07); }
+  .n-search .node-title { color:var(--yellow); }
+  .n-search.active { box-shadow:0 0 0 2px var(--yellow),0 0 24px rgba(245,197,24,.2); }
+
+  .n-rules { border-color:rgba(255,140,66,.4); background:rgba(255,140,66,.07); }
+  .n-rules .node-title { color:var(--orange); }
+  .n-rules.active { box-shadow:0 0 0 2px var(--orange),0 0 24px rgba(255,140,66,.2); }
+
+  .outputs { display:flex; gap:14px; align-items:flex-start; }
+  .out-col { display:flex; flex-direction:column; align-items:center; }
+  .out-node { cursor:pointer; width:140px; border-radius:10px; border:1px solid var(--border); background:var(--bg2); padding:12px 10px; text-align:center; transition:all .2s ease; }
+  .out-node:hover { transform:scale(1.05); }
+  .out-title { font-size:11px; font-weight:600; margin-bottom:3px; }
+  .out-sub { font-size:9px; font-family:'Space Mono',monospace; color:var(--text-muted); }
+  .o-article { border-color:rgba(79,195,247,.4); background:rgba(79,195,247,.07); }
+  .o-article .out-title { color:var(--blue); }
+  .o-article.active { box-shadow:0 0 0 2px var(--blue),0 0 20px rgba(79,195,247,.2); }
+  .o-post { border-color:var(--teal-border); background:var(--teal-muted); }
+  .o-post .out-title { color:var(--teal); }
+  .o-post.active { box-shadow:0 0 0 2px var(--teal),0 0 20px rgba(0,229,160,.2); }
+  .o-twitter { border-color:rgba(192,132,252,.4); background:rgba(192,132,252,.07); }
+  .o-twitter .out-title { color:var(--purple); }
+  .o-twitter.active { box-shadow:0 0 0 2px var(--purple),0 0 20px rgba(192,132,252,.2); }
+
+  .n-factcheck { border-color:rgba(245,197,24,.4); background:rgba(245,197,24,.07); }
+  .n-factcheck .node-title { color:var(--yellow); }
+  .n-factcheck.active { box-shadow:0 0 0 2px var(--yellow),0 0 24px rgba(245,197,24,.2); }
+
+  .n-disclaimer { border-color:rgba(248,113,113,.4); background:rgba(248,113,113,.07); min-width:300px; }
+  .n-disclaimer .node-title { color:var(--red); }
+  .n-disclaimer.active { box-shadow:0 0 0 2px var(--red),0 0 24px rgba(248,113,113,.2); }
+
+  .n-end { background:rgba(0,229,160,.1); border:2px solid var(--teal); border-radius:50px; padding:9px 36px; }
+  .n-end .node-title { color:var(--teal); font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.06em; }
+
+  .arr { display:flex; flex-direction:column; align-items:center; margin:4px 0; }
+  .arr-line { width:2px; height:22px; background:var(--border); transition:background .35s; }
+  .arr-head { width:0; height:0; border-left:5px solid transparent; border-right:5px solid transparent; border-top:7px solid var(--border); transition:border-top-color .35s; }
+  .arr.lit .arr-line { background:var(--teal); }
+  .arr.lit .arr-head { border-top-color:var(--teal); }
+
+  .merge-wrap { position:relative; width:320px; height:32px; margin:4px 0; }
+  .merge-wrap svg { width:100%; height:100%; overflow:visible; }
+  .mpath { stroke:var(--border); stroke-width:2; fill:none; transition:stroke .35s; }
+  .mpath.lit { stroke:var(--teal); }
+  .mhead { position:absolute; bottom:0; left:50%; transform:translateX(-50%); width:0; height:0; border-left:5px solid transparent; border-right:5px solid transparent; border-top:7px solid var(--border); transition:border-top-color .35s; }
+  .mhead.lit { border-top-color:var(--teal); }
+
+  .panel { width:300px; background:var(--bg2); border-left:1px solid var(--border); display:flex; flex-direction:column; flex-shrink:0; overflow:hidden; }
+  .panel-top { padding:16px 20px 12px; border-bottom:1px solid var(--border); flex-shrink:0; }
+  .panel-top-label { font-size:9px; font-family:'Space Mono',monospace; color:var(--text-muted); letter-spacing:.12em; text-transform:uppercase; margin-bottom:6px; }
+  .panel-title { font-size:14px; font-weight:600; color:var(--text); }
+  .progress { display:flex; gap:5px; padding:10px 20px 8px; border-bottom:1px solid var(--border); flex-shrink:0; }
+  .p-dot { width:7px; height:7px; border-radius:50%; background:var(--border); transition:background .25s; }
+  .p-dot.on { background:var(--teal); }
+  .panel-body { flex:1; overflow-y:auto; padding:14px 20px; }
+  .panel-body::-webkit-scrollbar { width:3px; }
+  .panel-body::-webkit-scrollbar-thumb { background:var(--teal-border); border-radius:2px; }
+  .detail-item { display:flex; gap:10px; align-items:flex-start; padding:9px 0; border-bottom:1px solid var(--border); font-size:12px; color:var(--text-dim); line-height:1.55; }
+  .detail-item:last-child { border-bottom:none; }
+  .d-num { font-family:'Space Mono',monospace; font-size:10px; color:var(--teal); background:var(--teal-muted); border:1px solid var(--teal-border); padding:1px 6px; border-radius:4px; flex-shrink:0; margin-top:2px; }
+  .d-num.warn { color:var(--red); background:rgba(248,113,113,.08); border-color:rgba(248,113,113,.3); }
+  .empty-state { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; padding:30px; }
+  .empty-line { width:32px; height:2px; background:var(--border); border-radius:2px; }
+  .empty-text { font-size:11px; color:var(--text-muted); font-family:'Space Mono',monospace; text-align:center; line-height:1.7; margin-top:6px; }
+  .reset-btn { margin:12px 20px; background:transparent; border:1px solid var(--border); color:var(--text-muted); font-family:'Space Mono',monospace; font-size:10px; padding:7px 0; border-radius:6px; cursor:pointer; transition:all .15s; letter-spacing:.06em; }
+  .reset-btn:hover { border-color:var(--teal-border); color:var(--teal); background:var(--teal-muted); }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <span class="logo">CONTENT CHATBOT — FLOW DIAGRAM</span>
+  <span class="hint">Click any node to explore</span>
+</div>
+<div class="main">
+  <div class="diagram">
+    <div class="flow">
+
+      <div class="node n-start" onclick="sel('start')"><div class="node-title">START</div></div>
+      <div class="arr" id="arr0"><div class="arr-line"></div><div class="arr-head"></div></div>
+
+      <!-- TWO INPUTS -->
+      <div class="input-row">
+        <div class="node n-topic" onclick="sel('topic')" id="n-topic">
+          <div class="node-title">User Topic</div>
+          <div class="node-sub">keyword / subject</div>
+        </div>
+        <div class="input-divider">
+          <div class="div-line"></div>
+          <div class="div-plus">+</div>
+          <div class="div-line"></div>
+        </div>
+        <div class="node n-writing" onclick="sel('writing')" id="n-writing">
+          <div class="node-title">User's Own Writing</div>
+          <div class="node-sub">draft / notes / content</div>
+        </div>
+      </div>
+
+      <!-- MERGE ARROWS -->
+      <div class="merge-wrap">
+        <svg viewBox="0 0 320 32" preserveAspectRatio="none">
+          <path class="mpath" id="mp-l" d="M 80 0 L 80 16 L 160 16 L 160 32"/>
+          <path class="mpath" id="mp-r" d="M 240 0 L 240 16 L 160 16"/>
+        </svg>
+        <div class="mhead" id="mhead"></div>
+      </div>
+
+      <div class="node n-search" onclick="sel('search')" id="n-search">
+        <div class="node-title">Web Search</div>
+        <div class="node-sub">research + verify facts</div>
+      </div>
+      <div class="arr" id="arr2"><div class="arr-line"></div><div class="arr-head"></div></div>
+
+      <div class="node n-rules" onclick="sel('rules')" id="n-rules">
+        <div class="node-title">Apply Content Rules</div>
+        <div class="node-sub">tone · audience · hashtags</div>
+      </div>
+      <div class="arr" id="arr3"><div class="arr-line"></div><div class="arr-head"></div></div>
+
+      <!-- OUTPUTS -->
+      <div class="outputs">
+        <div class="out-col">
+          <div class="arr" id="arr-a"><div class="arr-line"></div><div class="arr-head"></div></div>
+          <div class="out-node o-article" onclick="sel('article')" id="n-article">
+            <div class="out-title">LinkedIn Article</div><div class="out-sub">~500 words</div>
+          </div>
+        </div>
+        <div class="out-col">
+          <div class="arr" id="arr-b"><div class="arr-line"></div><div class="arr-head"></div></div>
+          <div class="out-node o-post" onclick="sel('post')" id="n-post">
+            <div class="out-title">LinkedIn Post</div><div class="out-sub">~250 words</div>
+          </div>
+        </div>
+        <div class="out-col">
+          <div class="arr" id="arr-c"><div class="arr-line"></div><div class="arr-head"></div></div>
+          <div class="out-node o-twitter" onclick="sel('twitter')" id="n-twitter">
+            <div class="out-title">Twitter Thread</div><div class="out-sub">tweets + thread</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arr" id="arr4" style="margin-top:8px"><div class="arr-line"></div><div class="arr-head"></div></div>
+
+      <div class="node n-factcheck" onclick="sel('factcheck')" id="n-factcheck">
+        <div class="node-title">Fact Check</div>
+        <div class="node-sub">human review · double-verify sources</div>
+      </div>
+      <div class="arr" id="arr5"><div class="arr-line"></div><div class="arr-head"></div></div>
+
+      <div class="node n-disclaimer" onclick="sel('disclaimer')" id="n-disclaimer">
+        <div class="node-title">AI-Generated Disclaimer</div>
+        <div class="node-sub">generated by ChatGPT · please review before use</div>
+      </div>
+      <div class="arr" id="arr6"><div class="arr-line"></div><div class="arr-head"></div></div>
+
+      <div class="node n-end" onclick="sel('end')"><div class="node-title">Delivered to User</div></div>
+
+    </div>
+  </div>
+
+  <!-- PANEL -->
+  <div class="panel">
+    <div class="empty-state" id="empty-state">
+      <div class="empty-line"></div><div class="empty-line" style="width:20px"></div>
+      <div class="empty-text">Click any node<br>to see details</div>
+    </div>
+    <div id="panel-content" style="display:none;flex-direction:column;flex:1;overflow:hidden;">
+      <div class="panel-top">
+        <div class="panel-top-label">Step Details</div>
+        <div class="panel-title" id="p-title"></div>
+      </div>
+      <div class="progress" id="progress"></div>
+      <div class="panel-body" id="p-body"></div>
+      <button class="reset-btn" onclick="resetAll()">Reset Diagram</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const details = {
+  start:   { title:'Start', items:[{n:'01',t:'User opens the chatbot interface',w:false},{n:'02',t:'Ready to receive a topic, keyword, or personal writing',w:false},{n:'03',t:'No prior setup needed — just type and go',w:false}] },
+  topic:   { title:'User Inputs Topic', items:[{n:'01',t:'User types any subject, keyword, or idea',w:false},{n:'02',t:'Chatbot identifies the core topic and target audience',w:false},{n:'03',t:'Focuses on one role at a time for precision',w:false},{n:'04',t:'Hook is generated first based on the content',w:false}] },
+  writing: { title:"User's Own Writing", items:[{n:'01',t:'User pastes their own draft, notes, or existing content',w:false},{n:'02',t:'Chatbot uses this as the base layer for all 3 formats',w:false},{n:'03',t:'Voice and key points are preserved and enhanced',w:false},{n:'04',t:'Combined with web research for richer output',w:false}] },
+  search:  { title:'Web Search', items:[{n:'01',t:'Chatbot triggers web search automatically after input',w:false},{n:'02',t:'Collects relevant, up-to-date facts on the topic',w:false},{n:'03',t:'No fabricated content — all facts are research-backed',w:false},{n:'04',t:"Synthesizes web findings with user's own writing",w:false}] },
+  rules:   { title:'Apply Content Rules', items:[{n:'01',t:'Professional + conversational tone throughout',w:false},{n:'02',t:'No headings displayed in final output',w:false},{n:'03',t:'2 relevant emojis included per output',w:false},{n:'04',t:'Hashtags: top relevant + #innovation #rami always added',w:false},{n:'05',t:"Content matched to target role's knowledge level",w:false}] },
+  article: { title:'LinkedIn Article — ~500 words', items:[{n:'01',t:'Hook — attention-grabbing opener',w:false},{n:'02',t:'Introduction — brief overview and central theme',w:false},{n:'03',t:'Specific Solutions — structured with bullet points',w:false},{n:'04',t:'Conclusion — summary + reinforce key points',w:false},{n:'05',t:'CTA — connect via LinkedIn or rami.nguyen12@gmail.com',w:false},{n:'06',t:'Signature ending included on every article',w:false}] },
+  post:    { title:'LinkedIn Post — ~250 words', items:[{n:'01',t:'"Are you…?" engaging question opener',w:false},{n:'02',t:'Intro — significance + what reader gains',w:false},{n:'03',t:'Actionable Link — immediate call to action',w:false},{n:'04',t:'Value Add 1 — key insight or benefit',w:false},{n:'05',t:'Value Add 2 — bullet features list',w:false},{n:'06',t:'Value Add 3 — additional angle or resource',w:false},{n:'07',t:'Engagement prompt + final CTA + hashtags',w:false}] },
+  twitter: { title:'Twitter / X Thread', items:[{n:'01',t:'Tweet 1 — bold hook to stop the scroll',w:false},{n:'02',t:'Tweets 2–N — thread breaking down the topic',w:false},{n:'03',t:'Short, punchy, platform-native language',w:false},{n:'04',t:'2 relevant emojis woven throughout',w:false},{n:'05',t:'Final tweet — hashtags + call to action',w:false}] },
+  factcheck: { title:'Fact Check', items:[{n:'01',t:'Human reviews all claims and statistics in the output',w:true},{n:'02',t:'Sources cross-verified against original research',w:true},{n:'03',t:'Any uncertain facts are flagged or removed',w:true},{n:'04',t:'Final review before the disclaimer is added',w:true}] },
+  disclaimer: { title:'AI-Generated Disclaimer', items:[{n:'!',t:'This content was generated by ChatGPT',w:true},{n:'!',t:'Facts have been double-checked, but please review before publishing',w:true},{n:'!',t:'Use your own judgment — AI can make mistakes',w:true},{n:'!',t:'Disclaimer is appended to every output automatically',w:true}] },
+  end: { title:'Delivered to User', items:[{n:'01',t:'All 3 format outputs ready with disclaimer attached',w:false},{n:'02',t:'Content tailored to the chosen role and platform',w:false},{n:'03',t:'Ready to review, edit, and publish',w:false}] }
+};
+
+const flowOrder = ['start','topic','writing','search','rules','article','post','twitter','factcheck','disclaimer','end'];
+const arrowMap = {
+  topic:      ['arr0','mp-l'],
+  writing:    ['arr0','mp-r'],
+  search:     ['arr0','mp-l','mp-r','mhead'],
+  rules:      ['arr0','mp-l','mp-r','mhead','arr2'],
+  article:    ['arr0','mp-l','mp-r','mhead','arr2','arr3','arr-a'],
+  post:       ['arr0','mp-l','mp-r','mhead','arr2','arr3','arr-b'],
+  twitter:    ['arr0','mp-l','mp-r','mhead','arr2','arr3','arr-c'],
+  factcheck:  ['arr0','mp-l','mp-r','mhead','arr2','arr3','arr-a','arr-b','arr-c','arr4'],
+  disclaimer: ['arr0','mp-l','mp-r','mhead','arr2','arr3','arr-a','arr-b','arr-c','arr4','arr5'],
+  end:        ['arr0','mp-l','mp-r','mhead','arr2','arr3','arr-a','arr-b','arr-c','arr4','arr5','arr6'],
+};
+const nodeMap = { topic:'n-topic', writing:'n-writing', search:'n-search', rules:'n-rules', article:'n-article', post:'n-post', twitter:'n-twitter', factcheck:'n-factcheck', disclaimer:'n-disclaimer' };
+
+let current = null;
+
+function resetAll() {
+  document.querySelectorAll('.arr').forEach(a=>a.classList.remove('lit'));
+  document.querySelectorAll('.mpath').forEach(p=>p.classList.remove('lit'));
+  document.getElementById('mhead').classList.remove('lit');
+  Object.values(nodeMap).forEach(id=>document.getElementById(id)?.classList.remove('active'));
+  document.getElementById('empty-state').style.display='flex';
+  document.getElementById('panel-content').style.display='none';
+  current=null;
+}
+
+function sel(key) {
+  if(current===key){resetAll();return;}
+  current=key;
+  document.querySelectorAll('.arr').forEach(a=>a.classList.remove('lit'));
+  document.querySelectorAll('.mpath').forEach(p=>p.classList.remove('lit'));
+  document.getElementById('mhead').classList.remove('lit');
+  Object.values(nodeMap).forEach(id=>document.getElementById(id)?.classList.remove('active'));
+  (arrowMap[key]||[]).forEach(id=>{const el=document.getElementById(id);if(el)el.classList.add('lit');});
+  if(nodeMap[key])document.getElementById(nodeMap[key]).classList.add('active');
+  const d=details[key]; if(!d)return;
+  document.getElementById('empty-state').style.display='none';
+  const pc=document.getElementById('panel-content'); pc.style.display='flex';
+  document.getElementById('p-title').textContent=d.title;
+  const idx=flowOrder.indexOf(key);
+  document.getElementById('progress').innerHTML=flowOrder.map((_,i)=>`<div class="p-dot ${i<=idx?'on':''}"></div>`).join('');
+  document.getElementById('p-body').innerHTML=d.items.map(item=>`<div class="detail-item"><span class="d-num ${item.w?'warn':''}">${item.n}</span><span>${item.t}</span></div>`).join('');
+}
+</script>
+</body>
+</html>
