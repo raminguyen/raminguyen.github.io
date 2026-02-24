@@ -17,8 +17,8 @@
   .topbar { background:var(--bg2); border-bottom:1px solid var(--border); padding:0 28px; height:46px; display:flex; align-items:center; justify-content:space-between; flex-shrink:0; }
   .logo { font-family:'Space Mono',monospace; font-size:11px; color:var(--teal); letter-spacing:.06em; }
   .hint { font-size:10px; color:var(--text-muted); font-family:'Space Mono',monospace; }
-  .main { flex:1; display:flex; overflow:hidden; width:100%; }
-  .diagram { flex:1; min-width:0; display:flex; align-items:center; justify-content:center; padding:20px 30px; overflow:auto; }
+  .main { flex:1; position:relative; overflow:hidden; }
+  .diagram { position:absolute; inset:0; right:300px; display:flex; align-items:center; justify-content:center; padding:20px 30px; overflow:auto; }
   .diagram::-webkit-scrollbar { width:4px; height:4px; }
   .diagram::-webkit-scrollbar-thumb { background:var(--teal-border); border-radius:2px; }
   .flow { display:flex; flex-direction:column; align-items:center; gap:0; }
@@ -89,7 +89,7 @@
   .mhead.lit { border-top-color:var(--teal); }
 
   /* Panel */
-  .panel { width:300px; background:var(--bg2); border-left:1px solid var(--border); display:flex; flex-direction:column; flex-shrink:0; overflow:hidden; position:relative; min-width:180px; max-width:90vw; }
+  .panel { position:absolute; right:0; top:0; bottom:0; width:300px; background:var(--bg2); border-left:1px solid var(--border); display:flex; flex-direction:column; overflow:hidden; min-width:180px; }
   .panel.pdf-mode { width:560px; }
 
   /* Left edge drag handle (width resize) */
@@ -292,7 +292,10 @@ function hidePdf() {
   document.getElementById('panel-pdf').classList.remove('visible');
   document.getElementById('panel-splitter').classList.remove('visible');
   document.getElementById('pdf-frame').src='';
-  document.getElementById('panel').classList.remove('pdf-mode');
+  const panel=document.getElementById('panel');
+  panel.classList.remove('pdf-mode');
+  panel.style.width='';
+  document.querySelector('.diagram').style.right='300px';
   document.getElementById('panel-content').style.height='';
 }
 
@@ -313,9 +316,11 @@ function sel(key) {
   document.getElementById('progress').innerHTML=flowOrder.map((_,i)=>`<div class="p-dot ${i<=idx?'on':''}"></div>`).join('');
   document.getElementById('p-body').innerHTML=d.items.map(item=>`<div class="detail-item"><span class="d-num ${item.w?'warn':''}">${item.n}</span><span>${item.t}</span></div>`).join('');
   if(key==='end'){
-    document.getElementById('panel').classList.add('pdf-mode');
+    const panel=document.getElementById('panel');
+    panel.classList.add('pdf-mode');
+    document.querySelector('.diagram').style.right='560px';
     // default split: details ~35%, PDF ~65%
-    const panelH = document.getElementById('panel').offsetHeight;
+    const panelH = panel.offsetHeight;
     pc.style.height = Math.round(panelH * 0.35) + 'px';
     document.getElementById('panel-splitter').classList.add('visible');
     document.getElementById('panel-pdf').classList.add('visible');
@@ -337,10 +342,12 @@ function sel(key) {
     document.body.style.userSelect='none';
     e.preventDefault();
   });
+  const diagram=document.querySelector('.diagram');
   document.addEventListener('mousemove',e=>{
     if(!dragging)return;
     const newW=Math.min(Math.max(startW+(startX-e.clientX),180),window.innerWidth*0.9);
     panel.style.width=newW+'px';
+    diagram.style.right=newW+'px';
   });
   document.addEventListener('mouseup',()=>{
     if(!dragging)return;
