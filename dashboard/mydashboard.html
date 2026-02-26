@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>My Dashboard</title>
+  <link rel="stylesheet" href="mydashboard.css" />
+</head>
+
+<body>
+
+  <div class="topbar">
+
+    <div class="topbar-name">Alex <span>Chen</span></div>
+
+    <nav class="topbar-nav">
+
+      <button class="nav-btn active" onclick="filterByType('all')">All</button>
+      <button class="nav-btn" onclick="filterByType('paper')">Papers</button>
+      <button class="nav-btn" onclick="filterByType('project')">Projects</button>
+      <button class="nav-btn" onclick="filterByType('speaker')">Speaking</button>
+      <button class="nav-btn" onclick="filterByType('mentoring')">Mentoring</button>
+      <button class="nav-btn" onclick="filterByType('education')">Education</button>
+
+    </nav>
+
+    <div class="topbar-status">
+
+      <div class="status-dot"></div>
+      OPEN TO COLLABORATE
+
+    </div>
+
+  </div>
+
+</body>
+
+</html>
